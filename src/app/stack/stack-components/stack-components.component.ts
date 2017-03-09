@@ -1,8 +1,7 @@
 import {
     Component,
     Input,
-    OnChanges,
-    OnInit
+    OnChanges
 } from '@angular/core';
 
 @Component({
@@ -10,7 +9,42 @@ import {
     templateUrl: './stack-components.html',
     styleUrls: ['./stack-components.scss']
 })
-export class StackComponents implements OnChanges, OnInit {
+
+/**
+ * StackComponents
+ * implements OnChanges
+ * 
+ * Selector: 
+ * 'f8-stack-components'
+ * 
+ * Template:
+ * stack-components.html
+ * 
+ * Style:
+ * stack-components.scss
+ * 
+ * Functionality:
+ * Handles the display of dependant packages/units for the given package information.
+ * 
+ * Parent Component: 
+ * StackDetailsComponent
+ * 
+ * Pipes:
+ * table-orderby.pipe.ts
+ * table-filter.pipe.ts
+ * 
+ * Features:
+ * 1. Column Sorting
+ * 2. Table Filtering
+ * 
+ * It receives the input as an Array from the parent Component
+ * 
+ * The view changes based on those values.
+ * 
+ * Dynamically updates the table entries on filtering or on sorting.
+ * 
+ */
+export class StackComponents implements OnChanges {
 
     @Input() dependencies;
     private dependenciesList: Array<any> = [];
@@ -27,7 +61,7 @@ export class StackComponents implements OnChanges, OnInit {
     private direction: string = '';
     private angleUp: string = 'fa-angle-up';
     private angleDown: string = 'fa-angle-down';
-    private sortDirectionClass: string = this.angleDown;
+    public sortDirectionClass: string = this.angleDown;
 
     constructor() {
         this.fieldName = 'name';
@@ -67,15 +101,9 @@ export class StackComponents implements OnChanges, OnInit {
         }
     }
 
-    ngOnInit() {
-        if (this.dependencies) {
-            this.handleDependencies(this.dependencies);
-        }
-    }
-
     private handleDependencies(dependencies: Array<any>): void {
-        if (this.dependencies) {
-            let length: number = this.dependencies.length;
+        if (dependencies) {
+            let length: number = dependencies.length;
             let dependency: any, eachOne: any;
             this.headers = [
                 {
@@ -105,9 +133,10 @@ export class StackComponents implements OnChanges, OnInit {
                 }
             ];
 
+            this.dependenciesList = [];
             for (let i: number = 0; i < length; ++ i) {
                 dependency = {};
-                eachOne = this.dependencies[i];
+                eachOne = dependencies[i];
                 dependency[this.keys['name']] = eachOne['name'];
                 dependency[this.keys['currentVersion']] = eachOne['version'];
                 dependency[this.keys['latestVersion']] = eachOne['latest_version'] || 'NA';
@@ -121,13 +150,21 @@ export class StackComponents implements OnChanges, OnInit {
             }
         }
     }
-
-    private handleKeyUpEvent(event: Event): void {
+    /**
+     * handleKeyUpEvent - takes an event and returns nothing
+     * 
+     * Gets triggered everytime a value is typed in the filter box
+     * Sets the received value to the fieldValue
+     */
+    public handleKeyUpEvent(event: Event): void {
         let target: any = event.target;
         this.fieldValue = target.value;
     }
 
-    private handleDropDownClick(element: Element): void {
+    /**
+     * Handles the click after changing the filters.
+     */
+    public handleDropDownClick(element: Element): void {
         if (element.classList.contains('open')) {
             element.classList.remove('open');
         } else {
@@ -135,7 +172,7 @@ export class StackComponents implements OnChanges, OnInit {
         }
     }
 
-    private handleFilterFieldClick(element: Element, field: any, event: Event): void {
+    public handleFilterFieldClick(element: Element, field: any, event: Event): void {
         event.stopPropagation();
         this.currentFilter = field.name;
         this.fieldName = field.identifier;
@@ -147,7 +184,12 @@ export class StackComponents implements OnChanges, OnInit {
         event.preventDefault();
     }
 
-    private handleTableOrderClick(header: any): void {
+    /**
+     * Handles the column header click.
+     * This changes the tables entries either to ascending order or 
+     * desending order in context to the field
+     */
+    public handleTableOrderClick(header: any): void {
         if (header.isSortable) {
             this.orderByName = header.identifier;
             if (!header.direction || header.direction.toLowerCase() === 'down') {

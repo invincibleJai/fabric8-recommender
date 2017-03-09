@@ -1,50 +1,64 @@
-import { Component, OnInit, Input, ViewEncapsulation, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  ViewChild
+} from '@angular/core';
 
-import { Logger } from 'ngx-login-client';
-import { Observable } from 'rxjs/Observable';
+// import { Logger } from '../../node_modules/ngx-login-client';
 
-import { Stack } from './../../../models/stack';
 import { StackAnalysesService } from '../stack-analyses.service';
-import { StackAnalysesModel } from '../stack-analyses.model';
-import { RenderNextService } from './render-next-service';
-import { AddWorkFlowService } from './add-work-flow.service';
-import { PagerService } from '../pager.service';
+
+import { GlobalConstants } from '../constants/constants.service';
 
 @Component({
   selector: 'stack-details',
   templateUrl: './stack-details.component.html',
   styleUrls: ['./stack-details.component.scss'],
-  providers: [AddWorkFlowService,
-    Logger,
-    PagerService,
-    RenderNextService,
-    StackAnalysesService,
-    StackAnalysesModel],
+  providers: [
+    // Logger,
+    StackAnalysesService
+  ],
   encapsulation: ViewEncapsulation.None
 })
-
+/**
+ * StackDetailsComponent - Provides the detailed analysis for the given codebase 
+ * by giving recommendation, overview and information about the dependencies of their packages
+ * 
+ * implements OnInit
+ * 
+ * Selector: 'stack-details'
+ * Template: stack-details.component.html
+ * Style: stack-details.component.scss
+ * 
+ * Services:
+ * 1. AddWorkFlowService
+ * 2. Logger
+ * 3. StackAnalysesService
+ * 
+ * Parent component that includes,
+ * 1. Recommendations
+ * 2. Overview
+ * 3. Components/Dependencies
+ * 
+ * Hits the Stack Analysis Service, gets the response
+ * Passes the tailored response to each of the children.
+ */
 export class StackDetailsComponent implements OnInit {
 
-  @Input() stack: Stack;
-  @ViewChild('workItemRespModal') modal: any;
+  //@Input() stack: Stack;
+  @Input() stack;
   @ViewChild('stackModule') modalStackModule: any;
 
   errorMessage: any = {};
   stackAnalysesData: Array<any> = [];
   componentAnalysesData: any = {};
-  mode = 'Observable';
+  mode: string = 'Observable';
 
-  requiredEngines = {};
-  requiredEnginesArr = [];
+  componentDataObject: any = {};
+  componentsDataTable: Array<any> = [];
 
-  componentDataObject = {};
-  componentsDataTable = [];
-
-  currentStackRows: Array<any> = [];
-  currentStackHeaders: Array<string> = [];
-
-  recoArray: Array<any> = [];
   currentIndex: number = 0;
 
   similarStacks: Array<any> = [];
@@ -52,145 +66,28 @@ export class StackDetailsComponent implements OnInit {
 
   workItemData: any = {};
   multilpeActionData: any = {};
-  multiRecommendMsg: string = '';
-
-  // pager object
-  pager: any = {};
-
-  // paged items
-  pagedItems: any[];
-
-  public recommendationForm = this.fb.group({
-    row: ["[{name: 'Sample1', version: '0.1.1', custom: '{name: 'Add'}'}]"]
-  });
-
-  private stackAnalysisRawData: any = {};
 
   private recommendations: Array<any> = [];
-
   private dependencies: Array<any> = [];
-
   private stackOverviewData: any = {};
 
-
   constructor(
-    public fb: FormBuilder,
-    private addWorkFlowService: AddWorkFlowService,
-    private pagerService: PagerService,
-    private renderNextService: RenderNextService,
     private stackAnalysesService: StackAnalysesService,
-    private stackAnalysesModel: StackAnalysesModel,
-    private logger: Logger
+    // private logger: Logger,
+    private messages: GlobalConstants
   ) { }
 
   ngOnInit() {
-    this.getStackAnalyses(this.stack.uuid);
-    this.setStackAnalysisRawData();
+    //this.getStackAnalyses(this.stack.uuid);
+    this.setStackAnalysisChartData();
+  }
 
-    this.recommendations = [
-      {
-        suggestion: 'Recommended1',
-        action: 'Upgrade',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      },
-      {
-        suggestion: 'Recommended2',
-        action: 'Downgrade',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      },
-      {
-        suggestion: 'Recommended3',
-        action: 'Remove',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      }, {
-        suggestion: 'Recommended4',
-        action: 'Upgrade',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      },
-      {
-        suggestion: 'Recommended5',
-        action: 'Downgrade',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      },
-      {
-        suggestion: 'Recommended6',
-        action: 'Remove',
-        message: 'Vertx Web applications have different version',
-        pop: [
-          {
-            itemName: 'Create WorkItem',
-            identifier: 'CREATE_WORK_ITEM'
-          }, {
-            itemName: 'Dismiss Recommendation',
-            identifier: 'DISMISS'
-          }, {
-            itemName: 'Restore Recommendation',
-            identifier: 'RESTORE'
-          }
-        ]
-      }
-    ];
-
+  /**
+   * setStackAnalysisChartData - takes nothing and returns nothing
+   * This function helps in setting the data that will be passed for
+   * overview component
+   */
+  private setStackAnalysisChartData(): void {
     this.stackOverviewData = {
       dependencyChart: [
         ['internal', 11],
@@ -203,136 +100,36 @@ export class StackDetailsComponent implements OnInit {
       CVEdata: ['CVE-2014-0001', 'CVE-2014-12345', 'CVE-2013-78934']
     };
 
-    this.dependencies = [{
-      name: 'v1.vmnei.somename',
-      curVersion: '1.0',
-      latestVersion: '3.1',
-      dateAdded: '10/17/15',
-      pubPopularity: '500',
-      enterpriseUsage: '1/7',
-      teamUsage: '1/3'
-    }, {
-      name: 'v1.vmnei.anothername',
-      curVersion: '2.0',
-      latestVersion: '3.1',
-      dateAdded: '10/17/15',
-      pubPopularity: '500',
-      enterpriseUsage: '2/7',
-      teamUsage: '1/3'
-    }, {
-      name: 'v1.vmnei.differentname',
-      curVersion: '3.0',
-      latestVersion: '3.1',
-      dateAdded: '10/17/15',
-      pubPopularity: '500',
-      enterpriseUsage: '3/7',
-      teamUsage: '1/3'
-    }, {
-      name: 'v1.vmnei.notatallaname',
-      curVersion: '4.0',
-      latestVersion: '3.1',
-      dateAdded: '10/17/15',
-      pubPopularity: '500',
-      enterpriseUsage: '4/7',
-      teamUsage: '1/3'
-    }];
-
-    // initialize to page 1
-    // this.setPage(1);
-
-    this.currentStackHeaders = [
-      'name',
-      'version',
-      'action'
-    ];
-
-    this.currentStackRows = [
-      { name: 'Sample1', version: '0.1.1' },
-      { name: 'Sample1', version: '0.1.1' },
-      { name: 'Sample1', version: '0.1.1' },
-      { name: 'Sample1', version: '0.1.1' }
-    ];
-
-    this.recoArray = [
-      {
-        'headers': [
-          'Name',
-          'Version',
-          'Action'
-        ],
-        'rows': [
-          { name: 'Sample1', version: '0.1.1' },
-          { name: 'Sample1', version: '0.1.1' },
-          { name: 'Sample1', version: '0.1.1' },
-          { name: 'Sample1', version: '0.1.1' }
-        ]
-      }
-    ];
-  }
-
-  private setStackAnalysisRawData(): void {
-    this.stackAnalysisRawData = {
-      packageName: '',
-      packageVersion: '',
-      averageUsage: 'NA',
-      lowPublicUsageComponents: 'NA',
-      redhatDistributedComponents: 'NA',
-      averageStars: '',
-      averageForks: '',
-      lowPopularityComponents: '',
-      distinctLicenses: '',
-      totalLicenses: '',
-      totalSecurityIssues: 'NA',
-      cvss: 'NA',
-      componentsWithTests: 'NA',
-      componentsWithDependencyLockFile: 'NA'
-    };
-  }
-
-  private getWorkItemData(): any {
-    this.workItemData = {
-      'data': {
-        'attributes': {
-          'system.state': 'new',
-          'system.title': '',
-          'system.description': 'Relevant description goes here.'
-        },
-        'relationships':
-        {
-          'baseType': {
-            'data':
-            { 'id': 'userstory', 'type': 'workitemtypes' }
-          }
-        },
-        'type': 'workitems', 'id': '55'
-      }
-    };
-    return this.workItemData;
-  }
-
-  /* Adding Single Work item */
-  private addWorkItem(row: any): void {
-    let workItemData: any = this.getWorkItemData();
-
-    workItemData.data.attributes['system.title']
-      = row.custom.name + ' ' + row.name + ' ' + row.version;
-
-    let workflow: Observable<any> = this.addWorkFlowService.addWorkFlow(workItemData);
-    workflow.subscribe((data) => {
-      let baseUrl: string = 'http://demo.almighty.io/work-item/list/detail/' + data.data.id;
-      this.showModal(baseUrl);
+    this.messages.getMessages('stackDetails').subscribe((messages) => {
+      console.log(messages);
     });
   }
-  /* Adding Single Work item */
-  private addSelectedItem(row: any): void {
-    if (row.name in this.multilpeActionData) {
-      delete this.multilpeActionData[row.name];
-    } else {
-      this.multilpeActionData[row.name] = row;
-    }
+
+  /**
+   * getRecommendationActions - takes nothing and returns an Array<any>
+   * This function returns the static Array of objects that are to be used
+   * as actions for each recommendation.
+   */
+  private getRecommendationActions(): Array<any> {
+    return [
+      {
+        itemName: 'Create WorkItem',
+        identifier: 'CREATE_WORK_ITEM'
+      }, {
+        itemName: 'Dismiss Recommendation',
+        identifier: 'DISMISS'
+      }, {
+        itemName: 'Restore Recommendation',
+        identifier: 'RESTORE'
+      }
+    ];
   }
 
-
+  /**
+   * setRecommendations - takes missing (Array), version (Array) and returns nothing.
+   * This function gets the missing packages information and version mismatch information
+   * Displays the information accordingly on screen
+   */
   private setRecommendations(missing: Array<any>, version: Array<any>): void {
     this.recommendations = [];
     for (let i in missing) {
@@ -341,18 +138,7 @@ export class StackDetailsComponent implements OnInit {
           suggestion: 'Recommended',
           action: 'Add',
           message: i + ' ' + missing[i],
-          pop: [
-            {
-              itemName: 'Create WorkItem',
-              identifier: 'CREATE_WORK_ITEM'
-            }, {
-              itemName: 'Dismiss Recommendation',
-              identifier: 'DISMISS'
-            }, {
-              itemName: 'Restore Recommendation',
-              identifier: 'RESTORE'
-            }
-          ]
+          pop: this.getRecommendationActions()
         });
       }
     }
@@ -363,18 +149,7 @@ export class StackDetailsComponent implements OnInit {
           suggestion: 'Recommended',
           action: 'Upgrade',
           message: i + ' ' + version[i],
-          pop: [
-            {
-              itemName: 'Create WorkItem',
-              identifier: 'CREATE_WORK_ITEM'
-            }, {
-              itemName: 'Dismiss Recommendation',
-              identifier: 'DISMISS'
-            }, {
-              itemName: 'Restore Recommendation',
-              identifier: 'RESTORE'
-            }
-          ]
+          pop: this.getRecommendationActions()
         });
       }
     }
@@ -384,75 +159,10 @@ export class StackDetailsComponent implements OnInit {
     this.dependencies = components;
   }
 
-  /* Get Recommendation */
-  private getRecommendations(components: any, recommendation: any): void {
-    this.similarStacks = recommendation.similar_stacks;
-    const analysis: any = this.similarStacks[0].analysis;
-    let missingPackages: Array<any> = analysis.missing_packages;
-    let versionMismatch: Array<any> = analysis.version_mismatch;
-
-
-    // Call the recommendations with the missing packages and version mismatches
-    this.setRecommendations(missingPackages, versionMismatch);
-
-    // Call the stack-components with the components information so that
-    // It can parse the necessary information and show relevant things.
-    this.setDependencies(components);
-
-    const url: string = this.similarStacks[0].uri;
-    this.recoArray[this.currentIndex]['rows'] = [];
-    this.recoArray[this.currentIndex]['url'] = url;
-    for (let component in components) {
-      if (components.hasOwnProperty(component)) {
-        this.recoArray[this.currentIndex]['rows'].push({
-          name: components[component].name,
-          version: components[component].version
-        });
-      }
-    }
-    for (let i in missingPackages) {
-      if (missingPackages.hasOwnProperty(i)) {
-        this.recoArray[this.currentIndex]['rows'].push({
-          'name': i,
-          'version': missingPackages[i],
-          'custom': {
-            'name': 'Add',
-            'type': 'checkbox'
-          }
-        });
-      }
-    }
-    for (let i in versionMismatch) {
-      if (versionMismatch.hasOwnProperty(i)) {
-        this.recoArray[this.currentIndex]['rows'].push({
-          'name': i,
-          'version': versionMismatch[i],
-          'custom': {
-            'name': 'Update',
-            'type': 'checkbox'
-          }
-        });
-      }
-    }
-  }
-
-
-  private getComponents(components): void {
-    this.currentStackRows = [];
-    for (let component in components) {
-      if (components.hasOwnProperty(component)) {
-        this.currentStackRows.push({
-          name: components[component].name,
-          version: components[component].version
-        });
-      }
-    }
-  }
-
   private setComponentsToGrid(stackData: any): void {
     let components: Array<any> = stackData.components;
     let length: number = components.length;
-    for (let i = 0; i < length; i++) {
+    for (let i: number = 0; i < length; i++) {
       let myObj: any = {};
       myObj.ecosystem = components[i].ecosystem;
       myObj.pkg = components[i].name;
@@ -475,135 +185,70 @@ export class StackDetailsComponent implements OnInit {
     }
   }
 
-  private setStackMetrics(stackData: any): void {
-    this.stackAnalysisRawData.packageName = stackData.name;
-    this.stackAnalysisRawData.packageVersion = stackData.version;
-
-    if (stackData.usage) {
-      this.stackAnalysisRawData.averageUsage = stackData.usage.average_usage;
-      this.stackAnalysisRawData.lowPublicUsageComponents
-        = stackData.usage.low_public_usage_components;
-      this.stackAnalysisRawData.redhatDistributedComponents
-        = stackData.usage.redhat_distributed_components;
-    }
-    this.stackAnalysisRawData.averageStars = stackData.popularity.average_stars;
-    this.stackAnalysisRawData.averageForks = stackData.popularity.average_forks;
-
-    this.stackAnalysisRawData.lowPopularityComponents
-      = stackData.popularity.low_popularity_components;
-
-    this.stackAnalysisRawData.distinctLicenses = stackData.distinct_licenses;
-    this.stackAnalysisRawData.totalLicenses = stackData.total_licenses;
-
-    if (stackData.total_security_issues)
-      this.stackAnalysisRawData.totalSecurityIssues = stackData.total_security_issues;
-
-    if (stackData.cvss)
-      this.stackAnalysisRawData.cvss = stackData.cvss;
-
-    if (stackData.metadata) {
-      this.stackAnalysisRawData.componentsWithTests = stackData.metadata.components_with_tests;
-      this.stackAnalysisRawData.componentsWithDependencyLockFile
-        = stackData.metadata.components_with_dependency_lock_file;
-
-      this.stackAnalysisRawData.requiredEngines = stackData.metadata.required_engines;
-    }
-
-    for (let key in this.requiredEngines) {
-      if (this.requiredEngines.hasOwnProperty(key)) {
-        this.requiredEnginesArr.push({ key: key, value: this.requiredEngines[key] });
-      }
-    }
-  }
-
-  private getStackAnalyses(id: string) {
+  /**
+   * getStackAnalyses - takes an id (string) and returns nothing.
+   * This hits the service and gets the response and passes it on to different functions.
+   */
+  private getStackAnalyses(id: string): void {
     let stackAnalysesData: any = {};
     this.stackAnalysesService
       .getStackAnalyses(id)
       .subscribe(data => {
+        // Enter the actual scene only if the data is valid and the data has something inside.
         if (data && Object.keys(data).length !== 0) {
           stackAnalysesData = data;
-          let result: any = stackAnalysesData.result[0];
-          let components: Array<any> = result.components;
-          let recommendations: Array<any> = stackAnalysesData.recommendation.recommendations;
+          let result: any;
+          let components: Array<any> = [];
 
-          this.getRecommendations(components, recommendations);
+          // Check if the data has results key
+          if (stackAnalysesData.hasOwnProperty('result') && stackAnalysesData.result.length > 0) {
+            result = stackAnalysesData.result[0];
+            if (result.hasOwnProperty('components')) {
+              components = result.components;
+              // Call the stack-components with the components information so that
+              // It can parse the necessary information and show relevant things.
+              this.setDependencies(components);
+            }
 
-          this.getComponents(components);
-          this.setStackMetrics(result);
-          this.setComponentsToGrid(result);
+            this.setComponentsToGrid(result);
+          }
+
+          // Check if the data has recommendation key
+          if (stackAnalysesData.hasOwnProperty('recommendation')) {
+            let recommendation: any = stackAnalysesData.recommendation.recommendations;
+            if (recommendation) {
+              this.similarStacks = recommendation.similar_stacks;
+              const analysis: any = this.similarStacks[0].analysis;
+              let missingPackages: Array<any> = analysis.missing_packages;
+              let versionMismatch: Array<any> = analysis.version_mismatch;
+
+              // Call the recommendations with the missing packages and version mismatches
+              this.setRecommendations(missingPackages, versionMismatch);
+            }
+          }
         } else {
+          // Set an error if the data is invalid or not proper.
           this.errorMessage.message = `This could take a while. Return to pipeline to keep
            working or stay on this screen to review progress.`;
           this.errorMessage.stack = '';
         }
+        console.log(this.recommendations);
       },
       error => {
+        // Throw error when the service fails
         this.errorMessage.message = <any>error.message;
         this.errorMessage.stack = <any>error.stack;
-      }
-      );
+      });
   }
 
-  private handleNext(value: any): void {
-    // ++ this.currentIndex;
-    // Hit a new Ajax call and populate the Array
-    let nextObservable: Observable<any>
-      = this.renderNextService.getNextList(this.recoArray[this.currentIndex]['url']);
-    nextObservable.subscribe((data) => {
-      this.logger.log(data);
-    });
-  }
-
-  private handlePrevious(value: any): void {
-    --this.currentIndex;
-  }
-
-  // make workitem api call with multiple recommendation //
-  private multipleRecoWorkItem(rows: any): void {
-    let workItemData: any = this.getWorkItemData();
-
-    for (let row in rows) {
-      if (rows.hasOwnProperty(row)) {
-        workItemData.data.attributes['system.title'] += rows[row].custom.name + ' '
-          + rows[row].name + ' ' + rows[row].version;
-      }
-    }
-    let workflow: Observable<any> = this.addWorkFlowService.addWorkFlow(workItemData);
-    workflow.subscribe((data) => {
-      let baseUrl: string = 'http://demo.almighty.io/work-item/list/detail/' + data.data.id;
-      this.multiRecommendMsg = baseUrl;
-    });
-  }
-
-  // process recomendation form //
-  private addMultipleWorkItem(event: any): void {
-    event.preventDefault();
-    this.multipleRecoWorkItem(this.multilpeActionData);
-  }
-
-  private showModal(baseUrl: string): void {
-    this.workItemRespMsg = baseUrl;
-    this.modal.open();
-  }
-
-  private setPage(page: number) {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.recommendations.length, page);
-
-    // get current page of items
-    this.pagedItems = this.recommendations.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
-
-  private showStackModal(event): void {
+  public showStackModal(): void {
+    console.clear();
+    console.log(this.recommendations);
+    this.getStackAnalyses('8950acb76bc84235873d73d149cb9f61');
     this.modalStackModule.open();
-    //TODO : below hack needs to be removed
+    // TODO : below hack needs to be removed
     // This hack was introduced as c3's chart was not properly rendered on load
     // but on triggering some random changes works fine
-
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 100);
