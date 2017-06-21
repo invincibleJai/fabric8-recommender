@@ -58,29 +58,28 @@ export function getStackRecommendations(data: any): Observable<any> {
                 fileName = resultData[0].manifest_name;
             }
             let recommendations: any = result.recommendation;
-            if (recommendations && recommendations.hasOwnProperty('recommendations')) {
-                let recommendation: any = recommendations.recommendations;
-                if (recommendation) {
-                    let similarStacks = recommendation.similar_stacks;
-                    similarStacks = similarStacks.length > 0 ? similarStacks[0] : null;
+            if (recommendations && recommendations.hasOwnProperty('analysis')) {
+                let analysis: any = recommendations['analysis'];
+                if (analysis) {
+                    /*let similarStacks = analysis.similar_stacks;
+                    similarStacks = similarStacks.length > 0 ? similarStacks[0] : null;*/
                     let resultObject: any = {};
-                    if (similarStacks) {
-                        const analysis: any = similarStacks.analysis;
-                        let missingPackages: Array<any> = analysis.missing_packages;
-                        let versionMismatch: Array<any> = analysis.version_mismatch;
-                        let similarity: number = similarStacks.similarity;
+                    if (analysis) {
+                        let alternatePackages: Array<string> = analysis.alternate_packages;
+                        let companionPackages: Array<string> = analysis.companion_packages;
+                        /*let similarity: number = similarStacks.similarity;
                         let source: string = similarStacks.source;
                         let stackId: string = similarStacks.stack_id;
                         let stackName: string = similarStacks.stack_name;
-                        let usage: number = similarStacks.usage;
+                        let usage: number = similarStacks.usage;*/
                         resultObject = {
-                            missing: missingPackages,
-                            version: versionMismatch,
-                            similarity: similarity,
-                            source: source,
-                            stackId: stackId,
-                            stackName: stackName,
-                            usage: usage,
+                            missing: alternatePackages,
+                            version: companionPackages,
+                            similarity: 25,
+                            source: '',
+                            stackId: 'stackId',
+                            stackName: 'stackName',
+                            usage: 23,
                             fileName: fileName,
                             finishedTime: finishedTime,
                             requestId: requestId,

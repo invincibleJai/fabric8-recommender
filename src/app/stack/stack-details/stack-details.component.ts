@@ -141,12 +141,64 @@ export class StackDetailsComponent implements OnInit {
     }
   }
 
+  private setRecommendations(responseRecommendations: any): void {
+    let missing: Array<any> = responseRecommendations['missing'] || [];
+    let version: Array<any> = responseRecommendations['version'] || [];
+    let stackName: string = responseRecommendations['stackName'] || 'An existing stack';
+    let fileName: string = responseRecommendations['fileName'];
+    this.recommendations = [];
+    for (let i in missing) {
+      if (missing.hasOwnProperty(i)) {
+        this.recommendations.push({
+          suggestion: 'Recommended',
+          action: 'Add',
+          message: missing[i],
+          subMessage: stackName + ' has this dependency included',
+          key: missing[i],
+          workItem: {
+            action: 'Add ' + missing[i],
+            message: 'Stack analytics has identified a potentially missing library. It\'s recommended that you add "' + missing[i] + ' to your application as many other Vert.x OpenShift applications have it included',
+            codebase: {
+              'repository': 'Test_Repo',
+              'branch': 'task-1234',
+              'filename': fileName,
+              'linenumber': 1
+            }
+          },
+          pop: this.getRecommendationActions()
+        });
+      }
+    }
+
+    for (let i in version) {
+      if (version.hasOwnProperty(i)) {
+        this.recommendations.push({
+          suggestion: 'Recommended',
+          action: 'Update',
+          message: version[i],
+          subMessage: stackName + ' has a different version of dependency',
+          workItem: {
+            action: 'Update ' + version[i],
+            message: 'Stack analytics has identified a potentially version upgrade. It\'s recommended that you upgrade "' + version[i] + ' to your application as many other Vert.x OpenShift applications have it included',
+            codebase: {
+              'repository': 'Exciting',
+              'branch': 'task-101',
+              'filename': fileName,
+              'linenumber': 1
+            }
+          },
+          pop: this.getRecommendationActions()
+        });
+      }
+    }
+  }
+
   /**
    * setRecommendations - takes missing (Array), version (Array) and returns nothing.
    * This function gets the missing packages information and version mismatch information
    * Displays the information accordingly on screen
    */
-  private setRecommendations(responseRecommendations: any): void {
+  private setRecommendations_ACTUAL(responseRecommendations: any): void {
     let missing: Array<any> = responseRecommendations['missing'] || [];
     let version: Array<any> = responseRecommendations['version'] || [];
     let stackName: string = responseRecommendations['stackName'] || 'An existing stack';
@@ -285,7 +337,7 @@ export class StackDetailsComponent implements OnInit {
                   this.setDependencies(response.components);
 
                   // set the overview data :-
-                  this.setOverviewData(response.components);
+                  // this.setOverviewData(response.components);
                 }
               }
             });
