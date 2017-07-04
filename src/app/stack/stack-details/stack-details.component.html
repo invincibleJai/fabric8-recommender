@@ -10,17 +10,7 @@
             <div class="pre-loader-spinner spinner spinner-lg"></div>
           </div>
           <div [hidden]="errorMessage.message">
-            <!-- Recommender -->
-            <div>
-              <f8-recommender [data]="repoInfo && repoInfo" [recommendations]="recommendations"></f8-recommender>
-            </div>
-            <!-- Stack Overview -->
-            <div>
-              <overview-stack [stackOverviewData]="stackOverviewData"></overview-stack>
-            </div>
-            <div>
-              <f8-stack-components [dependencies]="dependencies && dependencies"></f8-stack-components>
-            </div>
+            
           </div>
           <div class="error-msg blank-slate-pf" [hidden]="!errorMessage.message">
             <div [hidden]="!errorMessage.status">
