@@ -55,6 +55,13 @@ export class StackDetailsComponent implements OnInit {
   @ViewChild('stackModule') modalStackModule: any;
   public messages: any;
 
+  public companion: Array<any> = [];
+  public alternate: Array<any> = [];
+  public user: Array<any> = [];
+
+  public userStack: any = {};
+  public stackLevelInfo: any = {};
+
   errorMessage: any = {};
   stackAnalysesData: Array<any> = [];
   componentAnalysesData: any = {};
@@ -379,4 +386,60 @@ export class StackDetailsComponent implements OnInit {
     this.isLoading = false;
   }
 
+
+  /** New Stack Analysis Implementation */
+  private getStackResults(): void {
+    let url: string = 'https://gist.githubusercontent.com/arunkumars08/530483080a4162edcb57b9924a8eefd1/raw/c71ef945e4333b1941163c0a35cb70ac754e576e/stack.json';
+    let result: Observable<any> = this.stackAnalysesService.getStackResults(url);
+    result.subscribe((data: any) => {
+      this.handleStackResult(data);
+      this.isLoading = false;
+    });
+    console.log(result);
+  }
+
+  private buildCommon(data: Array<any>): void {
+
+  }
+
+  private buildCompanion(data: Array<any>): void {
+
+  }
+
+  private buildAlternate(data: Array<any>): void {
+
+  }
+
+  private buildUserStack(data: Array<any>): void {
+
+  }
+
+  private buildStackLevelInfo(data: any): void {
+
+  }
+
+  private handleSelectedRecommendation(data: any): void {
+    console.log('Inside');
+    console.log(data);
+  }
+
+  private handleStackResult(data: any): void {
+    let result = data.result[0];
+    let userStack: any = result['user_stack_info'];
+    let recommendations: any = result['recommendations'];
+
+    this.companion = recommendations['companion'];
+    this.alternate = recommendations['alternate'];
+    this.user = recommendations['user_stack_dependencies'];
+
+    console.log('Companion');
+    console.log(this.companion);
+
+    this.buildCompanion(this.companion);
+    this.buildAlternate(this.alternate);
+    this.buildUserStack(this.user);
+
+    this.buildStackLevelInfo(userStack);
+  }
+  /** New Stack Analysis Implementation */
 }

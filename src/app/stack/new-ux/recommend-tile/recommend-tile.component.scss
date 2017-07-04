@@ -1,0 +1,12 @@
+.recommend-tile {
+    border: 1px solid #ededed;
+    background: #fff;
+    font-size: 15px;
+    padding: 10px 0 10px 0;
+    text-align: center;
+
+    &.active {
+        background: #555;
+        color: #ededed;
+    }
+}

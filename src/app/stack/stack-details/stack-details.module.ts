@@ -10,6 +10,8 @@ import { RecommenderModule } from '../recommender/recommender.module';
 import { StackComponentsModule } from '../stack-components/stack-components.module';
 import { StackDetailsComponent } from './stack-details.component';
 
+import {RecommendationsModule} from '../new-ux/recommendations/recommendations.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { StackDetailsComponent } from './stack-details.component';
     ModalModule,
     RecommenderModule,
     StackComponentsModule,
-    OverviewModule
+    OverviewModule,
+    RecommendationsModule
   ],
   declarations: [ StackDetailsComponent ],
   exports: [ StackDetailsComponent ],

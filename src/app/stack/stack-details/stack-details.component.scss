@@ -46,4 +46,15 @@
             top: 50%;
         }
     }
+
+    .recommendations-section {
+        .recommendation-type {
+            margin-bottom: 20px;
+        }
+        .recommendation-title {
+            border-left: 5px solid #000;
+            padding: 10px;
+            background: #ededed;
+        }
+    }
 }

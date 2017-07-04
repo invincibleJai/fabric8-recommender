@@ -42,6 +42,14 @@ export class StackAnalysesService {
       }
   }
 
+  getStackResults(url: string): Observable<any> {
+      console.log(url);
+      return this .http
+                  .get(url)
+                  .map(this.extractData)
+                  .catch(this.handleError);
+  }
+
   getStackAnalyses(url: string): Observable<any> {
     let options = new RequestOptions({ headers: this.headers });
     return this.http.get(url, options)
@@ -68,6 +76,7 @@ export class StackAnalysesService {
 
   private extractData(res: Response) {
     let body = res.json();
+    console.log(body);
     return body || {};
   }
 

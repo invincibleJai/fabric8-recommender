@@ -1,7 +1,7 @@
 <div class="container stack-details">
   <div class="row">
     <a class="stack-reports-btn" (click)="showStackModal($event)">{{displayName}}</a>
-    <modal #stackModule title="Report title on Application, Build #{{buildId}}" modalClass="modal-lg modal-fullscreen" (onClose)="handleModalClose();" (onOpen)="getStackAnalyses(stack);">
+    <modal #stackModule title="Report title on Application, Build #{{buildId}}" modalClass="modal-lg modal-fullscreen" (onClose)="handleModalClose();" (onOpen)="getStackResults();">
       <modal-header>
           {{modalHeader}}
       </modal-header>
@@ -11,6 +11,27 @@
           </div>
           <div [hidden]="errorMessage.message">
             
+            <!-- New Stack Analyses Implementation -->
+            <div class="col-xs-12 col-md-5 recommendations-section">
+              <!-- Companion -->
+              <div class="recommendation-type companion-section">
+                <h3 class="recommendation-title">Companion Packages</h3>
+                <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="companion"></recommendations>
+              </div>
+
+              <!-- Alternate -->
+              <div class="recommendation-type companion-section">
+                <h3 class="recommendation-title">Alternate Packages</h3>
+                <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="alternate"></recommendations>
+              </div>
+              <!-- User -->
+              <div class="recommendation-type companion-section">
+                <h3 class="recommendation-title">User Stack</h3>
+                <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="user"></recommendations>
+              </div>
+            </div>
+            <!-- New Stack Analyses Implementation -->
+
           </div>
           <div class="error-msg blank-slate-pf" [hidden]="!errorMessage.message">
             <div [hidden]="!errorMessage.status">
