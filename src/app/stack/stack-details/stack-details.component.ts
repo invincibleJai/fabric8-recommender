@@ -89,6 +89,9 @@ export class StackDetailsComponent implements OnInit {
   private dependencies: Array<any> = [];
   private stackOverviewData: any = {};
 
+  showAnalysedDepData: boolean = false;
+  showDependentsData: boolean = false;
+
   constructor(
     private stackAnalysesService: StackAnalysesService,
     private constants: GlobalConstants
@@ -417,7 +420,8 @@ export class StackDetailsComponent implements OnInit {
   }
 
   private buildStackLevelInfo(data: any): void {
-
+    console.log(data);
+    this.stackLevelInfo = data;
   }
 
   private handleSelectedRecommendation(data: any): void {
@@ -444,6 +448,16 @@ export class StackDetailsComponent implements OnInit {
     this.buildUserStack(this.user);
 
     this.buildStackLevelInfo(userStack);
+  }
+
+  public toggleAnalysedDepData(event: Event): void {
+    event.preventDefault();
+    this.showAnalysedDepData = !this.showAnalysedDepData;
+  }
+
+  public toggleDependentsData(event: Event): void {
+    event.preventDefault();
+    this.showDependentsData = !this.showDependentsData;
   }
   /** New Stack Analysis Implementation */
 }

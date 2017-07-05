@@ -29,6 +29,49 @@
                 <h3 class="recommendation-title">User Stack</h3>
                 <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="user"></recommendations>
               </div>
+              <!-- Stack level information -->
+              <div class="recommendation-type companion-section">
+                <h3 class="recommendation-title">Stack level information</h3>
+                <div><i class="pficon pficon-virtual-machine"></i><span style="margin-left: 10px;">{{stackLevelInfo.ecosystem}}</span></div>
+                <div><i class="fa fa-arrow-circle-o-up"></i><span style="margin-left: 10px;">{{stackLevelInfo._release}}</span> (Latest Release)</div>
+                <div>
+                  <div (click)="toggleAnalysedDepData($event)">
+                    <i class="pficon pficon-topology"></i><span style="margin-left: 10px;">Analysed Dependent Packages</span>
+                    <i [ngClass]="showAnalysedDepData ? 'fa fa-angle-up' : 'fa fa-angle-down'"  style="float: right;"></i>
+                  </div>
+                  <ul *ngIf="showAnalysedDepData" class="list-group">
+                    <li class="list-group-item" *ngFor="let value of stackLevelInfo.analyzed_dependents; trackBy: index;">
+                      <i class="pficon pficon-folder-close"></i><span style="margin-left: 10px;">{{value.name}}</span>
+                    </li>
+                    <!--<li class="list-group-item">
+                      <i class="pficon pficon-folder-close"></i><span style="margin-left: 10px;">io.vertx.web</span>
+                    </li>-->
+                  </ul>
+                </div>
+                <div>
+                  <div (click)="toggleDependentsData($event)">
+                    <i class="pficon pficon-topology"></i><span style="margin-left: 10px;">Unknown Dependencies</span>
+                    <i [ngClass]="showDependentsData ? 'fa fa-angle-up' : 'fa fa-angle-down'" style="float: right;"></i>
+                  </div>
+                  <ul *ngIf="showDependentsData" class="list-group">
+                    <li class="list-group-item" *ngFor="let value of stackLevelInfo.unknown_dependents; trackBy: index;">
+                      <i class="pficon pficon-folder-close"></i><span style="margin-left: 10px;">{{value.name}}</span>
+                    </li>
+                    <!--<li class="list-group-item">
+                      <i class="pficon pficon-folder-close"></i><span style="margin-left: 10px;">io.vertx.web</span>
+                    </li>-->
+                  </ul>
+                </div>
+                <div><i class="fa fa-list-alt"></i><span style="margin-left: 10px;">Licenses</span>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span style="margin-left: 10px;">{{stackLevelInfo.distinct_licenses}}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div><span>Recmmended License: </span><span><b>{{stackLevelInfo.recommended_stack_licenses}}</b></span></div>
+                <div><span>License Conflicts: </span><span [ngStyle]="{'color' : stackLevelInfo.stack_license_conflict ? 'red' : 'green'}"><b>{{stackLevelInfo.stack_license_conflict ? 'Yes' : 'NONE'}}</b></span></div>
+              </div>
             </div>
             <div class="col-xs-12 col-md-7 preview-section">
               <div class="preview-area">
