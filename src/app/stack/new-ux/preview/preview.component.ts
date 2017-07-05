@@ -19,7 +19,7 @@ export class PreviewComponent {
             this.gaugeChart = {
                 data: {
                     columns: [
-                        ['data', 91.4]
+                        ['data', this.previewData.osio_user_count / 10]
                     ],
                     type: 'gauge'
                 },
