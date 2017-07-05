@@ -62,6 +62,8 @@ export class StackDetailsComponent implements OnInit {
   public userStack: any = {};
   public stackLevelInfo: any = {};
 
+  public previewData: any = {};
+
   errorMessage: any = {};
   stackAnalysesData: Array<any> = [];
   componentAnalysesData: any = {};
@@ -420,7 +422,7 @@ export class StackDetailsComponent implements OnInit {
 
   private handleSelectedRecommendation(data: any): void {
     console.log('Inside');
-    console.log(data);
+    this.previewData = data;
   }
 
   private handleStackResult(data: any): void {
@@ -431,6 +433,8 @@ export class StackDetailsComponent implements OnInit {
     this.companion = recommendations['companion'];
     this.alternate = recommendations['alternate'];
     this.user = recommendations['user_stack_dependencies'];
+
+    this.previewData = this.companion[0];
 
     console.log('Companion');
     console.log(this.companion);

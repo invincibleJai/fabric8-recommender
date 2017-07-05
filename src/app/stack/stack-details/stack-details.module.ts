@@ -11,6 +11,7 @@ import { StackComponentsModule } from '../stack-components/stack-components.modu
 import { StackDetailsComponent } from './stack-details.component';
 
 import {RecommendationsModule} from '../new-ux/recommendations/recommendations.module';
+import {PreviewModule} from '../new-ux/preview/preview.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {RecommendationsModule} from '../new-ux/recommendations/recommendations.m
     RecommenderModule,
     StackComponentsModule,
     OverviewModule,
-    RecommendationsModule
+    RecommendationsModule,
+    PreviewModule
   ],
   declarations: [ StackDetailsComponent ],
   exports: [ StackDetailsComponent ],
