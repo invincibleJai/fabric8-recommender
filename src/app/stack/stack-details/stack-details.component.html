@@ -12,26 +12,27 @@
           <div [hidden]="errorMessage.message">
             
             <!-- New Stack Analyses Implementation -->
-            <div class="col-xs-12 col-md-5 recommendations-section">
+            <div class="col-xs-12 col-md-4 recommendations-section">
               <!-- Companion -->
+              <h1>Recommendations</h1>
               <div class="recommendation-type companion-section">
-                <h3 class="recommendation-title">Companion Packages</h3>
+                <h3 class="recommendation-title">Companion components</h3>
                 <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="companion"></recommendations>
               </div>
 
               <!-- Alternate -->
               <div class="recommendation-type companion-section">
-                <h3 class="recommendation-title">Alternate Packages</h3>
+                <h3 class="recommendation-title">Alternative components</h3>
                 <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="alternate"></recommendations>
               </div>
               <!-- User -->
               <div class="recommendation-type companion-section">
-                <h3 class="recommendation-title">User Stack</h3>
+                <h3 class="recommendation-title">Your application Stack</h3>
                 <recommendations (onRecommendationSelect)="handleSelectedRecommendation($event)" [recommendations]="user"></recommendations>
               </div>
               <!-- Stack level information -->
               <div class="recommendation-type companion-section">
-                <h3 class="recommendation-title">Stack level information</h3>
+                <h3 class="recommendation-title">Recommendations: Your application stack</h3>
                 <div><i class="pficon pficon-virtual-machine"></i><span style="margin-left: 10px;">{{stackLevelInfo.ecosystem}}</span></div>
                 <div><i class="fa fa-arrow-circle-o-up"></i><span style="margin-left: 10px;">{{stackLevelInfo._release}}</span> (Latest Release)</div>
                 <div>
@@ -73,7 +74,7 @@
                 <div><span>License Conflicts: </span><span [ngStyle]="{'color' : stackLevelInfo.stack_license_conflict ? 'red' : 'green'}"><b>{{stackLevelInfo.stack_license_conflict ? 'Yes' : 'NONE'}}</b></span></div>
               </div>
             </div>
-            <div class="col-xs-12 col-md-7 preview-section">
+            <div class="col-xs-12 col-md-8 preview-section">
               <div class="preview-area">
                 <preview [previewData]="previewData"></preview>
               </div>
