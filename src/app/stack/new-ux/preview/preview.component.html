@@ -153,7 +153,18 @@
             </div>
         </div>
     </div>
-    <div *ngIf="previewData.license_outlier || previewData.usage_outlier" class="row">
+    <div class="row replaces-info margin-5px" *ngIf="previewData.replaces && previewData.replaces.length > 0">
+        <div class="replaces-info-header" (click)="toggleAnalysedDepData($event)">
+            <i class="fa fa-folder-open" aria-hidden="true"></i><span style="margin-left: 10px;">From your application stack, this package replaces:</span>
+            <i [ngClass]="showAnalysedDepData ? 'fa fa-angle-up' : 'fa fa-angle-down'"  style="float: right;"></i>
+        </div>
+        <ul *ngIf="showAnalysedDepData" class="list-group">
+            <li class="list-group-item" *ngFor="let value of previewData.replaces; trackBy: index;">
+                <i class="pficon pficon-folder-close"></i><span style="margin-left: 10px;">{{value.name}}</span>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="previewData.license_outlier || previewData.usage_outlier" class="row margin-5px">
         <div class="col-xs-12 outliers-info">
             <div class="content">
                 <span *ngIf="previewData.usage_outlier" class="outlier-pill">
@@ -167,7 +178,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row margin-5px">
         <div class="col-xs-12 licenses-info">
             <h3>
                 <i class="fa fa-certificate" aria-hidden="true"></i>

@@ -10,6 +10,7 @@ export class PreviewComponent {
     @Input() previewData;
 
     public gaugeChart: any = {};
+    public showAnalysedDepData: boolean = false;
 
     ngOnChanges(): void {
         if (this.previewData) {
@@ -37,5 +38,9 @@ export class PreviewComponent {
             };
 
         }
+    }
+    public toggleAnalysedDepData(event: Event): void {
+        event.preventDefault();
+        this.showAnalysedDepData = !this.showAnalysedDepData;
     }
 }
