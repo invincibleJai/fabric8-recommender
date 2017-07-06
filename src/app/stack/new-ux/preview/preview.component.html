@@ -153,6 +153,20 @@
             </div>
         </div>
     </div>
+    <div *ngIf="previewData.license_outlier || previewData.usage_outlier" class="row">
+        <div class="col-xs-12 outliers-info">
+            <div class="content">
+                <span *ngIf="previewData.usage_outlier" class="outlier-pill">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                    Usage Outlier
+                </span>
+                <span *ngIf="previewData.license_outlier" class="outlier-pill">
+                    <i class="fa fa-info" aria-hidden="true"></i>
+                    License Outlier
+                </span>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12 licenses-info">
             <h3>

@@ -394,7 +394,7 @@ export class StackDetailsComponent implements OnInit {
 
   /** New Stack Analysis Implementation */
   private getStackResults(): void {
-    let url: string = 'https://gist.githubusercontent.com/arunkumars08/530483080a4162edcb57b9924a8eefd1/raw/c71ef945e4333b1941163c0a35cb70ac754e576e/stack.json';
+    let url: string = 'https://gist.githubusercontent.com/arunkumars08/530483080a4162edcb57b9924a8eefd1/raw/ef0a92f4cd77bf9d47991fbca41329ccd5d1d5cd/stack.json';
     let result: Observable<any> = this.stackAnalysesService.getStackResults(url);
     result.subscribe((data: any) => {
       this.handleStackResult(data);
