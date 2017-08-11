@@ -43,6 +43,7 @@ export class StackDetailsComponent implements OnChanges {
         tab['active'] = true;
         let currentIndex: number = tab['index'];
         let recommendations: RecommendationsModel = this.recommendationsArray[currentIndex];
+        debugger;
         this.stackLevelOutliers = {
             'usage': recommendations.usage_outliers
         };
@@ -113,17 +114,18 @@ export class StackDetailsComponent implements OnChanges {
                     let resultInformation: Observable<StackReportModel> = getStackReportModel(data);
                     resultInformation.subscribe((response) => {
                         console.log(response);
+                        debugger;
                         let result: Array<ResultInformationModel> = response.result;
                         this.totalManifests = result.length;
                         this.userStackInformationArray = result.map((r) => r.user_stack_info);
                         result.forEach((r, index) => {
                             console.log('HEre');
                             this.tabs.push({
-                                title: '',
+                                title: r.manifest_file_path,
                                 content: r,
                                 index: index
                             });
-                            this.recommendationsArray.push(r.recommendations);
+                            this.recommendationsArray.push(r.recommendation); //Change if the API key changes
                         });
 
                         this.dataLoaded = true;
