@@ -1,1 +1,76 @@
-This is inshort
+<div class="stack-report-inshort">
+<!--<div (click)="$event.preventDefault()">
+    <tabset>
+        <tab *ngFor="let tabz of tabs"
+            [heading]="tabz.title"
+            [active]="tabz.active"
+            (select)="tabSelection(tabz)"
+            (deselect)="tabz.active = false"
+            [disabled]="tabz.disabled"
+            [removable]="tabz.removable"
+            (removed)="removeTabHandler(tabz)"
+            [customClass]="tabz.customClass">
+    
+        </tab>
+    </tabset>
+</div>-->
+
+<!-- Stack Report Snippet -->
+                <div class="stack-report-snippet">
+                    <div class="findings-inshort">
+                        Findings from user's stack [<b>Total: 30</b> components | <b>Analyzed: 26</b> | <b>Unknown: 4</b>]
+                    </div>
+                    <div class="summary-inshort">
+                        <div class="stat-container security-issues-stat">
+                            <div class="stat-box">
+                                <h3>
+                                    <span>Security Issues</span>
+                                </h3>
+                                <div class="stat-content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-container outlier-stat">
+                            <div class="stat-box">
+                                <h3>
+                                    <span>Outliers</span>
+                                    <p>Some of your components are outdated</p>
+                                </h3>
+                                <div class="stat-content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-container conflicts-stat">
+                            <div class="stat-box">
+                                <h3>
+                                    <span>Conflicts</span>
+                                </h3>
+                                <div class="stat-content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-container stack-license-stat">
+                            <div class="stat-box">
+                                <h3>
+                                    <span>Stack Level License</span>
+                                </h3>
+                                <div class="stat-content">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recommendations-inshort">
+                        <div class="recommendation-components alternate-components">
+                            Based on your stack/intent, OSIO would recommend <b>12 alternate components</b> to align to similar developer community or intent.
+                        </div>
+                        <div class="recommendation-components companion-components">
+                            Based on your stack/intent, OSIO would recommend <b>6 additional components</b> to add, so that your stack's health could improve.
+                        </div>
+                    </div>
+                </div>
+                <!-- Stack Report Snippet -->
+</div>

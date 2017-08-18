@@ -1,0 +1,58 @@
+.stack-report-inshort {
+    .stack-report-snippet {
+        width: 700px;
+        height: 500px;
+        margin: 0 auto;
+        margin-top: 10%;
+        border: 1px solid #ccc;
+
+        .findings-inshort {
+            font-size: 12px;
+            margin: 10px;
+        }
+        .summary-inshort {
+            display: flex;
+            height: 150px;
+            .stat-box {
+                h3 {
+                    background: #ededed;
+                    margin: 0;
+                    height: 40px;
+                    padding: 5px;
+                    display: flex;
+                    align-items: center;
+                    span {
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+                    p {
+                        margin: 0 0 0 10px;
+                        font-size: 10px;
+                    }
+                }
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                float: none;
+                clear: both;
+            }
+            .width-20 {
+                width: 20%;
+            }
+            .width-40 {
+                width: 40%;
+            }
+            .stat-container {
+                margin: 10px 5px;
+                border: 1px solid #ccc;
+                flex: 1;
+                &.outlier-stat {
+                    flex: 3;
+                }
+                align-items: stretch;
+            }
+        }
+    }
+}
