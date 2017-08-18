@@ -1,21 +1,11 @@
 <div class="stack-report-inshort">
-<!--<div (click)="$event.preventDefault()">
+<div (click)="$event.preventDefault()">
     <tabset>
         <tab *ngFor="let tabz of tabs"
             [heading]="tabz.title"
-            [active]="tabz.active"
-            (select)="tabSelection(tabz)"
-            (deselect)="tabz.active = false"
-            [disabled]="tabz.disabled"
-            [removable]="tabz.removable"
-            (removed)="removeTabHandler(tabz)"
-            [customClass]="tabz.customClass">
-    
-        </tab>
-    </tabset>
-</div>-->
+            [active]="true">
 
-<!-- Stack Report Snippet -->
+            <!-- Stack Report Snippet -->
                 <div class="stack-report-snippet">
                     <div class="findings-inshort">
                         Findings from user's stack [<b>Total: 30</b> components | <b>Analyzed: 26</b> | <b>Unknown: 4</b>]
@@ -73,4 +63,8 @@
                     </div>
                 </div>
                 <!-- Stack Report Snippet -->
+    
+        </tab>
+    </tabset>
+</div>
 </div>
