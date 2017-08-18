@@ -9,6 +9,7 @@ export class ResultInformationModel {
     audit: AuditInformationModel;
     release: string;
     manifest_name: string;
+    manifest_file_path: string;
     recommendations: RecommendationsModel;
     user_stack_info: UserStackInfoModel;
 }

@@ -10,11 +10,15 @@ import {StackReportModel, ResultInformationModel, UserStackInfoModel, ComponentI
     templateUrl: './stack-details.component.html',
     providers: [StackAnalysesService],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['stack-details.component.scss']
+    styleUrls: ['./stack-details.component.scss'],
 })
 
 export class StackDetailsComponent implements OnChanges {
     @Input() stack: string;
+    @Input() displayName;
+    @Input() repoInfo;
+    @Input() buildNumber;
+    @Input() appName;
 
     @ViewChild('stackModule') modalStackModule: any;
 
@@ -74,6 +78,7 @@ export class StackDetailsComponent implements OnChanges {
             subHeader: 'Consider theses additional dependencies'
         };
         this.modalStackModule.open();
+        this.displayName = this.displayName || 'Stack Reports';
     }
 
     public handleChangeFilter(filterBy: any): void {

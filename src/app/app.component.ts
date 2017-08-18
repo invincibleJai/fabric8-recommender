@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
         window.onhashchange = () => {
             let id: string = location.hash.replace('#/analyze/', '');
             this.label = id;
-            this.changeLabel();
+            // this.changeLabel();
         };
     }
 

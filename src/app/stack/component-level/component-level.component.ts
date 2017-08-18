@@ -5,7 +5,7 @@ import {ComponentInformationModel, RecommendationsModel, OutlierInformationModel
 @Component({
     selector: 'component-level-information',
     templateUrl: './component-level.component.html',
-    styleUrls: ['component-level.component.scss']
+    styleUrls: ['./component-level.component.scss'],
 })
 
 export class ComponentLevelComponent implements OnChanges {

@@ -1,0 +1,36 @@
+import { OnChanges } from '@angular/core';
+import { StackAnalysesService } from '../stack-analyses.service';
+import { UserStackInfoModel, ComponentInformationModel, RecommendationsModel } from '../models/stack-report.model';
+export declare class StackDetailsComponent implements OnChanges {
+    private stackAnalysisService;
+    stack: string;
+    displayName: any;
+    repoInfo: any;
+    buildNumber: any;
+    appName: any;
+    modalStackModule: any;
+    error: any;
+    userStackInformation: UserStackInfoModel;
+    componentLevelInformation: any;
+    userComponentInformation: Array<ComponentInformationModel>;
+    companionLevelRecommendation: any;
+    dataLoaded: boolean;
+    recommendationsArray: Array<RecommendationsModel>;
+    stackLevelOutliers: any;
+    companionLevel: any;
+    componentLevel: any;
+    componentFilterBy: string;
+    feedbackConfig: any;
+    tabs: Array<any>;
+    private userStackInformationArray;
+    private totalManifests;
+    private stackId;
+    tabSelection(tab: any): void;
+    ngOnChanges(): void;
+    handleChangeFilter(filterBy: any): void;
+    constructor(stackAnalysisService: StackAnalysesService);
+    private handleError(error);
+    private initFeedback();
+    private resetFields();
+    private init(url);
+}
