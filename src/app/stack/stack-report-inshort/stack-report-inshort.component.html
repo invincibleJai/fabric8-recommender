@@ -3,7 +3,7 @@
     <tabset>
         <tab *ngFor="let tabz of tabs"
             [heading]="tabz.title"
-            [active]="true">
+            [active]="tabz.active">
 
             <!-- Stack Report Snippet -->
                 <div class="stack-report-snippet">
@@ -38,7 +38,12 @@
                                     <span>Conflicts</span>
                                 </h3>
                                 <div class="stat-content">
-
+                                    <div class="metric">
+                                        <span>04</span>
+                                    </div>
+                                    <div class="metric-desc">
+                                        of your components' licenses conflicting in stack level.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +53,7 @@
                                     <span>Stack Level License</span>
                                 </h3>
                                 <div class="stat-content">
-
+                                    <!--<f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>-->
                                 </div>
                             </div>
                         </div>

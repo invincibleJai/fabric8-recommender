@@ -19,7 +19,13 @@ export class StackReportInShortComponent implements OnInit, OnChanges {
         this.tabs.push({
             title: 'File 1',
             content: 'Sample',
-            index: 0
+            index: 0,
+            active: true
+        });
+        this.tabs.push({
+            title: 'File 2',
+            content: 'Sample',
+            index: 1
         });
     }
 }
