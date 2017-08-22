@@ -23,6 +23,7 @@ export class StackReportInShortComponent implements OnChanges {
     public recommendations: RecommendationsModel;
     public licenseInfo: any;
     public securityInfo: any;
+    public stackLevelOutliers: any;
 
     constructor(private stackAnalysisService: StackAnalysesService) {}
 
@@ -53,6 +54,9 @@ export class StackReportInShortComponent implements OnChanges {
         let currentIndex: number = tab['index'];
         this.stackLevel = tab.content.user_stack_info;
         this.recommendations = tab.content.recommendations;
+        this.stackLevelOutliers = {
+            'usage': this.recommendations.usage_outliers
+        };
         this.handleLicenseInformation(this.stackLevel);
         this.handleSecurityInformation(this.stackLevel);
         console.log(tab);

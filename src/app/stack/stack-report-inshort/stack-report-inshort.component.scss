@@ -6,7 +6,6 @@
         }
         .summary-inshort {
             display: flex;
-            height: 200px;
             .stat-box {
                 h3 {
                     background: #ededed;
@@ -70,6 +69,64 @@
                 }
                 &.stack-license-stat {
                     flex: 3;
+                }
+                &.security-issues-stat {
+
+                    .cve-message {
+                        font-size: 12px;
+                        color: #777;
+                        font-weight: 100;
+                    }
+                    .cvss-id {
+                        font-size: 15px;
+                        font-weight: 100;
+                        margin-top: 5px;
+
+                        i {
+                            font-size: 25px;
+                            cursor: pointer;
+                            color: #ff7f0e;
+
+                            &.warning-red-color::before {
+                                color: #cc0000;
+                            }
+                        }
+                    }
+
+                    .cvss-data {
+                        height: 50px;
+                        margin-top: 10px;
+
+                        & > div {
+                            height: 100%;
+                            position: relative;
+
+                            .cvss-score {
+                                font-size: 20px;
+                                font-weight: 100;
+                            }
+
+                            .cvss-score-label {
+                                font-size: 12px;
+                                font-weight: 100;
+                                bottom: 6px;
+
+                                .label-1 {
+                                    font-size: 15px;
+                                }
+                            }
+
+                            .cvss-indication {
+                                position: absolute;
+                                right: 20px;
+                                bottom: 6px;
+                            }
+                        }
+                    }
+
+                    .progress-bar {
+                        cursor: pointer;
+                    }
                 }
                 align-items: stretch;
             }

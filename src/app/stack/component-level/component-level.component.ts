@@ -76,6 +76,10 @@ export class ComponentLevelComponent implements OnChanges {
             name: 'Alternate Components',
             identifier: 'isChild',
             class: 'fa fa-database child-icon alternate-component-icon'
+        }, {
+            name: 'Grouped Components',
+            identifier: 'isGrouped',
+            class: 'fa fa-database child-icon alternate-component-icon'
         }];
 
         this.currentFilter = this.filters[0].name;
@@ -250,6 +254,7 @@ export class ComponentLevelComponent implements OnChanges {
                     this.checkAlternate(eachOne['name'], eachOne['version'], this.dependenciesList, dependency['compId']);
                     if (tempLen !== this.dependenciesList.length) {
                         dependency['isParent'] = true;
+                        dependency['isGrouped'] = true;
                     }
                 }
             }
@@ -301,6 +306,7 @@ export class ComponentLevelComponent implements OnChanges {
                 let obj: any = this.setParams(r, true);
                 obj['isChild'] = true;
                 obj['parent-reference'] = parentId;
+                obj['isGrouped'] = true;
                 list.push(obj);
             });
         }

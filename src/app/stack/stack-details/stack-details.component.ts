@@ -36,6 +36,7 @@ export class StackDetailsComponent implements OnChanges {
     public componentLevel: any = {};
 
     public componentFilterBy: string = '';
+    public customClass: string = 'customClass';
 
 
     public feedbackConfig: any = {};

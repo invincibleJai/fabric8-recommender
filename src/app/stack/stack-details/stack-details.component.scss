@@ -2,6 +2,12 @@
     .modal-width-class {
         width: 95%;
     }
+
+    .card.customClass .card-header {
+        background: #6fc0f9;
+        color: #fff;
+    }
+
     .error-wrapper {
         position: relative;
         height: 80%;
