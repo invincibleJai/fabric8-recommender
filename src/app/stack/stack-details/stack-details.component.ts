@@ -46,6 +46,11 @@ export class StackDetailsComponent implements OnChanges {
 
     private stackId: string;
 
+    public showStackModal(event: Event): void {
+        event.preventDefault();
+        this.modalStackModule.open();
+    }
+
     public tabSelection(tab: any): void {
         tab['active'] = true;
         let currentIndex: number = tab['index'];
@@ -76,7 +81,7 @@ export class StackDetailsComponent implements OnChanges {
             header: 'Possible companion dependencies',
             subHeader: 'Consider theses additional dependencies'
         };
-        this.modalStackModule.open();
+        // this.modalStackModule.open();
         this.displayName = this.displayName || 'Stack Reports';
     }
 

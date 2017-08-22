@@ -10,13 +10,13 @@
             <!-- Stack Report Snippet -->
                 <div class="stack-report-snippet">
                     <div class="findings-inshort">
-                        Findings from user's stack [<b>Total: {{stackLevel && stackLevel.dependencies && stackLevel.dependencies.length}}</b> components | <b>Analyzed: {{stackLevel && stackLevel.analyzed_dependencies_count}}</b> | <b>Unknown: {{stackLevel && stackLevel.unknown_dependencies_count}}</b>]
+                        Components [<b>Total: {{stackLevel && stackLevel.dependencies && stackLevel.dependencies.length}}</b> components | <b>Analyzed: {{stackLevel && stackLevel.analyzed_dependencies_count}}</b> | <b>Unknown: {{stackLevel && stackLevel.unknown_dependencies_count}}</b>]
                     </div>
                     <div class="summary-inshort">
                         <div class="stat-container security-issues-stat">
                             <div class="stat-box">
                                 <h3>
-                                    <span>Security Issues</span>
+                                    <span>Security Alert</span>
                                 </h3>
                                 <div class="stat-content">
 
@@ -26,25 +26,14 @@
                         <div class="stat-container outlier-stat">
                             <div class="stat-box">
                                 <h3>
-                                    <span>Outliers</span>
-                                    <p>Some of your components are outdated</p>
+                                    <span>Usage</span>
                                 </h3>
                                 <div class="stat-content">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-container conflicts-stat">
-                            <div class="stat-box">
-                                <h3>
-                                    <span>Conflicts</span>
-                                </h3>
-                                <div class="stat-content">
-                                    <div class="metric">
-                                        <span>04</span>
-                                    </div>
                                     <div class="metric-desc">
-                                        of your components' licenses conflicting in stack level.
+                                        Components that aren't commonly used in your stack
+                                    </div>
+                                    <div class="metric">
+                                        <span>03</span>
                                     </div>
                                 </div>
                             </div>
@@ -52,20 +41,45 @@
                         <div class="stat-container stack-license-stat">
                             <div class="stat-box">
                                 <h3>
-                                    <span>Stack Level License</span>
+                                    <span>Licenses</span>
                                 </h3>
                                 <div class="stat-content chart-area">
-                                    <f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>
+                                    <div class="col-md-3">
+                                        <div class="metric-desc">
+                                            Out of date
+                                        </div>
+                                        <div class="metric">
+                                            <span>03</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="metric-desc">
+                                            Conflicts
+                                        </div>
+                                        <div class="metric">
+                                            <span>
+                                                {{stackLevel && stackLevel.license_analysis && stackLevel.license_analysis.status && stackLevel.license_analysis.status.toLowerCase() === 'stacklicenseconflict' ? 'YES' : 'NO'}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="metric-desc">
+                                            All Licenses
+                                        </div>
+                                        <div class="metric">
+                                            <f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="recommendations-inshort">
                         <div class="recommendation-components alternate-components">
-                            Based on your stack/intent, OSIO would recommend <b>{{recommendations && recommendations.alternate && recommendations.alternate.length}} alternate components</b> to align to similar developer community or intent.
+                            <b>{{recommendations && recommendations.alternate && recommendations.alternate.length}} alternate components</b> match your stack composition and may be more appropriate.
                         </div>
                         <div class="recommendation-components companion-components">
-                            Based on your stack/intent, OSIO would recommend <b>{{recommendations && recommendations.companion && recommendations.companion.length}} additional components</b> to add, so that your stack's health could improve.
+                            <b>{{recommendations && recommendations.companion && recommendations.companion.length}} additional components</b> are often used by similar stacks.
                         </div>
                     </div>
                 </div>

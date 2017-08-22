@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {StackAnalysesService} from '../stack-analyses.service';
 import {getStackReportModel} from '../utils/stack-api-utils';
 
-import {StackReportModel, ResultInformationModel, UserStackInfoModel, RecommendationsModel} from '../models/stack-report.model';
+import {StackReportModel, ResultInformationModel, UserStackInfoModel, RecommendationsModel, ComponentInformationModel} from '../models/stack-report.model';
 
 @Component({
     selector: 'stack-report-inshort',
@@ -21,6 +21,7 @@ export class StackReportInShortComponent implements OnChanges {
     public stackLevel: UserStackInfoModel;
     public recommendations: RecommendationsModel;
     public licenseInfo: any;
+    public securityInfo: any;
 
     constructor(private stackAnalysisService: StackAnalysesService) {}
 
@@ -52,6 +53,7 @@ export class StackReportInShortComponent implements OnChanges {
         this.stackLevel = tab.content.user_stack_info;
         this.recommendations = tab.content.recommendations;
         this.handleLicenseInformation(this.stackLevel);
+        this.handleSecurityInformation(this.stackLevel);
         console.log(tab);
     }
 
@@ -62,6 +64,51 @@ export class StackReportInShortComponent implements OnChanges {
             }
             return a[1] > b[1] ? -1 : 1;
         });
+    }
+
+    private handleSecurityInformation(tab: UserStackInfoModel): void {
+        let dependencies: Array<ComponentInformationModel> = tab.dependencies;
+        let security: Array<any> = [];
+        let temp: Array<any> = [];
+        
+        dependencies.forEach((dependency) => {
+            security = dependency.security;
+            if (security.length > 0) {
+                let max: any = security.reduce((a, b) => {
+                    return parseFloat(a['CVSS']) < parseFloat(b['CVSS']) ? b : a;
+                });
+                temp.push({
+                    name: dependency.name,
+                    cve: max
+                });
+            }
+        });
+        if (temp.length > 0) {
+            let final: any = temp.reduce((a, b) => {
+                return parseFloat(a['cve']['CVSS']) < parseFloat(b['cve']['CVSS']) ? b : a;
+            });
+            let cvssValue: number = final.cve.CVSS;
+            let indicator: number;
+            let iconClass: string = 'fa fa-shield';
+            let displayClass: string = 'progress-bar-warning';
+
+            if (cvssValue < 0) {
+                indicator = -1;
+            }
+            if (cvssValue >= 7.0) {
+                indicator = cvssValue;
+                iconClass = 'fa fa-shield';
+                displayClass = 'progress-bar-danger';
+            }
+            this.securityInfo = {
+                name: final.name,
+                cve: final.cve,
+                percentage: final.cve.CVSS * 10,
+                status: final.cve.CVSS < 7 ? 'moderate' : 'critical',
+                iconClass: iconClass,
+                displayClass: displayClass
+            };
+        }
     }
 
     private handleLicenseInformation(tab: UserStackInfoModel): void {
