@@ -15,6 +15,7 @@ import {StackReportModel, ResultInformationModel, UserStackInfoModel, Recommenda
 
 export class StackReportInShortComponent implements OnChanges {
     @Input() stackUrl;
+    @Input() repoInfo;
 
     public tabs: Array<any> = [];
     public result: StackReportModel;
