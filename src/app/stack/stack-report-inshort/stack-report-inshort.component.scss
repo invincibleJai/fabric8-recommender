@@ -1,11 +1,5 @@
 .stack-report-inshort {
     .stack-report-snippet {
-        width: 700px;
-        height: 500px;
-        margin: 0 auto;
-        margin-top: 10%;
-        border: 1px solid #ccc;
-
         .findings-inshort {
             font-size: 12px;
             margin: 10px;
@@ -31,6 +25,12 @@
                     }
                 }
                 .stat-content {
+                    &.chart-area {
+                        text-align: center;
+                        .c3-chart-arcs-title {
+                            font-size: 10px;
+                        }
+                    }
                     .metric {
                         height: 40px;
                         display: flex;

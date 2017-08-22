@@ -3,12 +3,14 @@
     <tabset>
         <tab *ngFor="let tabz of tabs"
             [heading]="tabz.title"
-            [active]="tabz.active">
+            [active]="tabz.active"
+            (select)="tabSelection(tabz)"
+            (deselect)="tabz.active = false">
 
             <!-- Stack Report Snippet -->
                 <div class="stack-report-snippet">
                     <div class="findings-inshort">
-                        Findings from user's stack [<b>Total: 30</b> components | <b>Analyzed: 26</b> | <b>Unknown: 4</b>]
+                        Findings from user's stack [<b>Total: {{stackLevel && stackLevel.dependencies && stackLevel.dependencies.length}}</b> components | <b>Analyzed: {{stackLevel && stackLevel.analyzed_dependencies_count}}</b> | <b>Unknown: {{stackLevel && stackLevel.unknown_dependencies_count}}</b>]
                     </div>
                     <div class="summary-inshort">
                         <div class="stat-container security-issues-stat">
@@ -52,18 +54,18 @@
                                 <h3>
                                     <span>Stack Level License</span>
                                 </h3>
-                                <div class="stat-content">
-                                    <!--<f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>-->
+                                <div class="stat-content chart-area">
+                                    <f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="recommendations-inshort">
                         <div class="recommendation-components alternate-components">
-                            Based on your stack/intent, OSIO would recommend <b>12 alternate components</b> to align to similar developer community or intent.
+                            Based on your stack/intent, OSIO would recommend <b>{{recommendations && recommendations.alternate && recommendations.alternate.length}} alternate components</b> to align to similar developer community or intent.
                         </div>
                         <div class="recommendation-components companion-components">
-                            Based on your stack/intent, OSIO would recommend <b>6 additional components</b> to add, so that your stack's health could improve.
+                            Based on your stack/intent, OSIO would recommend <b>{{recommendations && recommendations.companion && recommendations.companion.length}} additional components</b> to add, so that your stack's health could improve.
                         </div>
                     </div>
                 </div>

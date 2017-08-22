@@ -50,7 +50,6 @@ export class StackDetailsComponent implements OnChanges {
         tab['active'] = true;
         let currentIndex: number = tab['index'];
         let recommendations: RecommendationsModel = this.recommendationsArray[currentIndex];
-        debugger;
         this.stackLevelOutliers = {
             'usage': recommendations.usage_outliers
         };
@@ -124,7 +123,6 @@ export class StackDetailsComponent implements OnChanges {
                     let resultInformation: Observable<StackReportModel> = getStackReportModel(data);
                     resultInformation.subscribe((response) => {
                         console.log(response);
-                        debugger;
                         let result: Array<ResultInformationModel> = response.result;
                         this.totalManifests = result.length;
                         this.userStackInformationArray = result.map((r) => r.user_stack_info);
