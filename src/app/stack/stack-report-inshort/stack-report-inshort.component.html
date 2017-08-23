@@ -26,13 +26,8 @@
                                             data-toggle="tooltip" data-placement="top" 
                                             title="CVSS: Score to measure the impact of security vulnerability. In a scale from 0.0-10.0, vulnerabilities less than 7.0 are considered medium impact and more than or equal to 7.0 are considered high impact ones."></i>
                                         </div>
-                                        <div class="cve-message">
-                                            Associated package: <b>{{securityInfo && securityInfo?.name}}</b>
-                                        </div>
-                                        <div class="row cvss-data">
-                                            <div class="col-xs-12">
-                                                <span class="cvss-score">{{securityInfo.cve && securityInfo.cve.CVSS}}</span>
-                                                <span class="cvss-score-label"><span class="label-1">CVSS Score</span></span>
+                                        <div class="cvss-data">
+                                            <div>
                                                 <span class="cvss-indication"><b>{{securityInfo.cve && securityInfo.cve.CVSS}} out of</b> 10</span>
                                             </div>
                                         </div>
@@ -55,12 +50,14 @@
                                 <h3>
                                     <span>Usage</span>
                                 </h3>
-                                <div class="stat-content">
-                                    <div class="metric-desc">
-                                        Components that aren't commonly used in your stack
-                                    </div>
-                                    <div class="metric">
-                                        <span>{{stackLevelOutliers && stackLevelOutliers.usage && stackLevelOutliers.usage.length}}</span>
+                                <div class="stat-content usage-outlier">
+                                    <div class="metric-container">
+                                        <div class="metric-desc">
+                                            Components that aren't commonly used in your stack
+                                        </div>
+                                        <div class="metric">
+                                            <span>{{stackLevelOutliers && stackLevelOutliers.usage && stackLevelOutliers.usage.length}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +68,7 @@
                                     <span>Licenses</span>
                                 </h3>
                                 <div class="stat-content chart-area">
-                                    <div class="col-md-3">
+                                    <div class="outlier-license flex-2">
                                         <div class="metric-desc">
                                             Out of date
                                         </div>
@@ -79,7 +76,7 @@
                                             <span>03</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="conflict-license flex-2">
                                         <div class="metric-desc">
                                             Conflicts
                                         </div>
@@ -89,10 +86,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="metric-desc">
-                                            All Licenses
-                                        </div>
+                                    <div class="all-license flex-2">
                                         <div class="metric">
                                             <f8-chart [data]="licenseInfo['data']" [chartOptions]="licenseInfo['chartOptions']" [configs]="licenseInfo['configs']"></f8-chart>
                                         </div>
@@ -114,6 +108,8 @@
     
         </tab>
     </tabset>
-    <stack-details *ngIf="result" class="report-link" [displayName]="'Show complete stack report'" [stackResponse]="result && result"></stack-details>
+    <div class="show-full-report">
+        <stack-details *ngIf="result" class="report-link" [displayName]="'Show complete stack report'" [stackResponse]="result && result"></stack-details>
+    </div>
 </div>
 </div>

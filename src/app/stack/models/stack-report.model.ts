@@ -10,7 +10,7 @@ export class ResultInformationModel {
     release: string;
     manifest_name: string;
     manifest_file_path: string;
-    recommendations: RecommendationsModel;
+    recommendation: RecommendationsModel;
     user_stack_info: UserStackInfoModel;
 }
 
@@ -32,12 +32,21 @@ export class ComponentInformationModel {
     github: GithubModel;
     latest_version: string;
     licenses: Array<string>;
+    license_analysis: LicenseAnalysisModel;
     name: string;
     osio_user_count: number;
     replaces: any;
     security: Array<any>;
     sentiment: SentimentModel;
     version: string;
+}
+
+export class LicenseAnalysisModel {
+    conflict_licenses: Array<any>;
+    status: string;
+    unknown_licenses: Array<any>;
+    _message: string;
+    _representative_licenses: any;
 }
 
 export class GithubModel {

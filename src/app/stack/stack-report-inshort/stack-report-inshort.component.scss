@@ -7,11 +7,15 @@
         .summary-inshort {
             display: flex;
             .stat-box {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
                 h3 {
                     background: #ededed;
                     margin: 0;
                     height: 40px;
                     padding: 5px;
+                    flex: 1;
                     display: flex;
                     align-items: center;
                     span {
@@ -24,10 +28,27 @@
                     }
                 }
                 .stat-content {
+                    align-items: center;
+                    display: flex;
+                    flex: 4;
+                    .flex-1 {
+                        flex: 1;
+                    }
+                    .flex-2 {
+                        flex: 2;
+                    }
+                    &.usage-outlier {
+                        flex: 4;
+                        justify-content: center;
+                    }
                     &.chart-area {
                         text-align: center;
+                        flex: 4;
                         .c3-chart-arcs-title {
                             font-size: 10px;
+                        }
+                        f8-chart  {
+                            margin: 0 auto;
                         }
                     }
                     .metric {
@@ -78,12 +99,12 @@
                         font-weight: 100;
                     }
                     .cvss-id {
-                        font-size: 15px;
+                        font-size: 10px;
                         font-weight: 100;
                         margin-top: 5px;
 
                         i {
-                            font-size: 25px;
+                            font-size: 12px;
                             cursor: pointer;
                             color: #ff7f0e;
 
@@ -94,15 +115,13 @@
                     }
 
                     .cvss-data {
-                        height: 50px;
                         margin-top: 10px;
 
                         & > div {
-                            height: 100%;
                             position: relative;
 
                             .cvss-score {
-                                font-size: 20px;
+                                font-size: 12px;
                                 font-weight: 100;
                             }
 
@@ -112,14 +131,8 @@
                                 bottom: 6px;
 
                                 .label-1 {
-                                    font-size: 15px;
+                                    font-size: 12px;
                                 }
-                            }
-
-                            .cvss-indication {
-                                position: absolute;
-                                right: 20px;
-                                bottom: 6px;
                             }
                         }
                     }
@@ -143,5 +156,8 @@
                 }
             }
         }
+    }
+    .show-full-report {
+        margin: 10px 0 10px 10px;
     }
 }
