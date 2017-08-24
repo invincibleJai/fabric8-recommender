@@ -1,5 +1,10 @@
-.stack-level-information {
-    .summary-inshort {
+.stack-report-inshort {
+    .stack-report-snippet {
+        .findings-inshort {
+            font-size: 12px;
+            margin: 10px;
+        }
+        .summary-inshort {
             display: flex;
             .stat-box {
                 display: flex;
@@ -94,12 +99,12 @@
                         font-weight: 100;
                     }
                     .cvss-id {
-                        font-size: 15px;
+                        font-size: 10px;
                         font-weight: 100;
                         margin-top: 5px;
 
                         i {
-                            font-size: 25px;
+                            font-size: 12px;
                             cursor: pointer;
                             color: #ff7f0e;
 
@@ -110,15 +115,13 @@
                     }
 
                     .cvss-data {
-                        height: 50px;
                         margin-top: 10px;
 
                         & > div {
-                            height: 100%;
                             position: relative;
 
                             .cvss-score {
-                                font-size: 20px;
+                                font-size: 12px;
                                 font-weight: 100;
                             }
 
@@ -128,14 +131,8 @@
                                 bottom: 6px;
 
                                 .label-1 {
-                                    font-size: 15px;
+                                    font-size: 12px;
                                 }
-                            }
-
-                            .cvss-indication {
-                                position: absolute;
-                                right: 20px;
-                                bottom: 6px;
                             }
                         }
                     }
@@ -147,4 +144,20 @@
                 align-items: stretch;
             }
         }
+        .recommendations-inshort {
+            .recommendation-components {
+                &:before {
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    display: inline-block;
+                    background: #000;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+    .show-full-report {
+        margin: 10px 0 10px 10px;
+    }
 }
