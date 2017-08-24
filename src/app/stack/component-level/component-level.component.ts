@@ -10,8 +10,8 @@ import { AddWorkFlowService } from '../stack-details/add-work-flow.service';
 @Component({
     selector: 'component-level-information',
     templateUrl: './component-level.component.html',
-    styleUrls: ['component-level.component.scss'],
-    providers: [AddWorkFlowService]
+    styleUrls: ['./component-level.component.scss'],
+    providers: [AddWorkFlowService],
 })
 
 export class ComponentLevelComponent implements OnChanges {
