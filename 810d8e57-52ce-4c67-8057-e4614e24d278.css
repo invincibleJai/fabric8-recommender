@@ -1,0 +1,43 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 768px) {
+  .mobdn {
+    display: none;
+  }
+  .list-view-pf .list-group-item-heading {
+    font-size: em(12);
+  }
+}
+@media (max-width: 767px) {
+  .containerPadd {
+    padding-top: em(11);
+  }
+  .containerPadd-nologin {
+    padding-bottom: 0;
+  }
+}
+.containerPadd {
+  padding: em(96) 0 em(66) 0;
+}
+.containerPadd-nologin {
+  padding-bottom: 0;
+}

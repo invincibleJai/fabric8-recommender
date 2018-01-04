@@ -1,0 +1,25 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.pipeline-insights .pipeline-insights-btn {
+  cursor: pointer;
+}
+.pipeline-insights #imp_info {
+  border: 1px solid #f00f0f;
+  padding: 5px;
+  margin: 20px;
+  margin-top: 10px;
+}

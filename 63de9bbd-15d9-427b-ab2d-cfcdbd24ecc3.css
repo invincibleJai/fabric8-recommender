@@ -1,0 +1,55 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.pipeline-insights .pipeline-insights-btn {
+  cursor: pointer;
+}
+.pipeline-insights #imp_info {
+  border: 1px solid #f00f0f;
+  padding: 5px;
+  margin: 20px;
+  margin-top: 10px;
+}
+.pipeline-insights .modal-width-class {
+  width: 95%;
+}
+.pipeline-insights .modal-width-class .modal-fullscreen {
+  width: 95%;
+}
+.pipeline-insights .modal-width-class .modal-fullscreen .pre-loader {
+  width: min-content;
+  left: 50%;
+}
+.pipeline-insights .modal-width-class .modal-fullscreen .pre-loader .pre-loader-spinner {
+  margin: 20px;
+}
+.pipeline-insights .modal-width-error-class {
+  width: fit-content;
+}
+.pipeline-insights .modal-width-error-class .modal-fullscreen {
+  width: fit-content;
+  margin: 175px auto;
+}
+.pipeline-insights .modal-width-error-class .modal-fullscreen .pre-loader {
+  width: 30%;
+  left: 50%;
+  margin: -14px;
+  padding-bottom: 10px;
+  padding-top: 25px;
+}
+.pipeline-insights .modal-width-error-class .modal-fullscreen .pre-loader .pre-loader-spinner {
+  margin: 20px;
+}

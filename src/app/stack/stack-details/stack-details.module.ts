@@ -11,6 +11,7 @@ import { StackDetailsComponent } from './stack-details.component';
 
 /** New UX */
 import {StackLevelModule} from '../stack-level/stack-level.module';
+import {PipelineInsightsModule} from '../pipeline-insights/pipeline-insights.module';
 import {ComponentLevelModule} from '../component-level/component-level.module';
 import {FeedbackModule} from '../feedback/feedback.module';
 /** New UX */
@@ -22,6 +23,7 @@ import {FeedbackModule} from '../feedback/feedback.module';
     FormsModule,
     ModalModule,
     StackLevelModule,
+    PipelineInsightsModule,
     ComponentLevelModule,
     AccordionModule.forRoot(),
     TabsModule.forRoot()

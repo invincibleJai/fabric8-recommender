@@ -1,0 +1,119 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.stack-report .stack-reports-btn {
+  cursor: pointer;
+}
+.stack-report .modal-width-class {
+  width: 95%;
+}
+.stack-report .modal-width-class .modal-fullscreen {
+  width: 60%;
+}
+.stack-report .modal-width-class .modal-fullscreen .pre-loader {
+  width: fit-content;
+}
+.stack-report .modal-width-class .modal-fullscreen .pre-loader .pre-loader-spinner {
+  right: 50%;
+}
+.stack-report .modal-breath-class {
+  width: 25%;
+}
+.stack-report .modal-breath-class .modal-fullscreen {
+  width: fit-content;
+  margin: 175px auto;
+}
+.stack-report .accordion-indicator {
+  top: unset;
+  margin-left: 10px;
+}
+.stack-report .active-menu-item .nav-link.active {
+  color: #000;
+  font-weight: bold;
+}
+.stack-report .pre-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 99;
+}
+.stack-report .pre-loader .pre-loader-spinner {
+  top: 50%;
+}
+.stack-report .error-msg {
+  text-align: center;
+  background: #fff;
+  border: none;
+  margin: -14px;
+  padding-bottom: 10px;
+  padding-top: 25px;
+  width: fit-content;
+}
+.stack-report .error-msg .warning-icon {
+  font-size: 6em;
+}
+.stack-report .error-msg .warning-icon i:before {
+  color: #8b8d8f;
+}
+.stack-report .error-msg .container-progress {
+  width: 50%;
+  margin: 0 auto;
+}
+.stack-report .accordion-custom {
+  cursor: pointer;
+}
+.stack-report .card.accordion-custom .card-header {
+  background: #6fc0f9;
+  color: #fff;
+  cursor: pointer;
+}
+.stack-report .card.accordion-custom .card-header .accordion-heading {
+  float: left;
+}
+.stack-report .card.accordion-custom .card-header .accordion-sub-heading {
+  float: right;
+  color: #030303;
+}
+.stack-report .card.accordion-custom .card-header:after {
+  content: '';
+  clear: both;
+  float: none;
+  display: block;
+}
+.stack-report .error-wrapper {
+  position: relative;
+  height: 80%;
+  width: 50%;
+  margin: 5% auto;
+}
+.stack-report .error-wrapper .error-image .display-icon {
+  font-size: 10vw;
+}
+.stack-report .error-wrapper .error-image .not-found-class {
+  color: #ff1f1c;
+}
+.stack-report .error-wrapper .error-image .warning-class {
+  color: #fb8c00;
+}
+.stack-report .error-wrapper .error-image .progress-class {
+  color: #3b5998;
+}
+.stack-report .error-wrapper .error-container {
+  position: relative;
+}

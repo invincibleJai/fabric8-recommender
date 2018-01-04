@@ -43,7 +43,7 @@ export class StackDetailsComponent implements OnChanges {
     public componentFilterBy: string = '';
     public customClass: string = 'accordion-custom';
     public analysis: any = {};
-
+    public cve_Info: number;
 
     public feedbackConfig: any = {};
 
@@ -65,6 +65,10 @@ export class StackDetailsComponent implements OnChanges {
      */
     public handleModalClose(): void {
         this.resetFields();
+    }
+
+    public getcve(data: number): void {
+        this.cve_Info = data;
     }
 
     public tabSelection(tab: any): void {
@@ -209,9 +213,9 @@ export class StackDetailsComponent implements OnChanges {
             });
         } else if(data && data.hasOwnProperty('error')){
             this.handleError({
-                message: "Analysis for your stack is in progress...",
+                message: 'Your report is getting generated.Please Revisit!',
                 code: data.statusCode,
-                title: 'Updating ...'
+                title: ''
             });
         }
         else {

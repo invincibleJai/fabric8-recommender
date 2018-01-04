@@ -1,0 +1,182 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.component-information > .table-responsive {
+  overflow: visible;
+}
+.component-information table {
+  font-size: 13px;
+  table-layout: fixed;
+}
+.component-information table th {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 11px;
+  word-wrap: break-word;
+}
+.component-information table td {
+  vertical-align: middle;
+  background: #fff;
+}
+.component-information table .child-class td,
+.component-information table .parent-class td {
+  background: #fcfbdd;
+}
+.component-information table .github-stats span {
+  display: inline-block;
+  width: 99%;
+}
+.component-information table .used-by {
+  display: inline-block;
+  width: 99%;
+}
+.component-information table .used-by span {
+  width: 60%;
+}
+.component-information table .used-by .used-by-icon {
+  color: #ff7f0e;
+}
+.component-information table .child-class {
+  font-weight: bold;
+}
+.component-information table .child-class td:first-child {
+  /* stylelint-disable */
+  padding-left: 35px !important;
+  /* stylelint-enable */
+}
+.component-information table .child-class .github-stats {
+  font-weight: normal;
+}
+.component-information table .child-class td {
+  background: #dcf98a;
+}
+.component-information table td:first-child span {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+.component-information table .relation-icon {
+  transform: rotate(-180deg);
+  position: relative;
+  top: -10px;
+}
+.component-information table .ellipsis {
+  max-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+}
+.component-information table .action {
+  font-size: 10px;
+  color: dodgerblue;
+  cursor: pointer;
+}
+.component-information table .small-width {
+  width: 5%;
+}
+.component-information table .medium-width {
+  width: 10%;
+}
+.component-information table .large-width {
+  width: 15%;
+}
+.component-information table .parent-icon {
+  color: #ed7b01;
+  cursor: pointer;
+}
+.component-information table .secure {
+  color: #60b57e;
+}
+.component-information table .text-center {
+  text-align: center;
+}
+.component-information table .companion {
+  color: #60b57e;
+}
+.component-information .stack-components-toolbar {
+  margin: 0;
+  padding: 10px 0 0px 10px;
+  border: 1px solid;
+  border-color: #d1d1d1;
+}
+.component-information .stack-components-toolbar:after {
+  content: '';
+  clear: both;
+  float: none;
+  display: block;
+}
+.component-information .usage-outlier:after {
+  content: 'U';
+}
+.component-information .license-outlier:after {
+  content: 'L';
+}
+.component-information .insecure {
+  color: #ff1f1c;
+}
+.component-information .child-icon {
+  color: #000;
+}
+.component-information .outlier-icon,
+.component-information .filter-icon {
+  font-size: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 3px;
+  color: #fff;
+  background: #cc0000;
+}
+.component-information .different-version {
+  color: #ed7b01;
+}
+.component-information .unknown-license {
+  /* stylelint-disable */
+  background: #ed7b01 !important;
+  color: #fff !important;
+  font-size: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 3px;
+  /* stylelint-enable */
+}
+.component-information .unknown-license:after {
+  content: 'L';
+}
+.component-information .conflict-license {
+  /* stylelint-disable */
+  background: #cc0000 !important;
+  color: #fff !important;
+  font-size: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  padding: 3px;
+  /* stylelint-enable */
+}
+.component-information .conflict-license:after {
+  content: 'L';
+}
+.component-information .outlier-license-text {
+  font-weight: bold;
+}
+.component-information .unknown-license-text {
+  color: #ed7b01;
+  font-weight: bold;
+}
+.component-information .conflict-license-text {
+  color: #cc0000;
+  font-weight: bold;
+}

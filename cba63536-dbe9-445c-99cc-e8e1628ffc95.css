@@ -1,0 +1,76 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.feedback {
+  position: fixed;
+  right: 5px;
+  bottom: 10px;
+}
+.feedback .feedback-button {
+  opacity: .4;
+  font-size: 10px;
+  position: relative;
+  border: 0;
+  background: none;
+}
+.feedback .feedback-button:hover {
+  opacity: 1;
+  background: #3b5998;
+  color: #fff;
+}
+.feedback .feedback-submit {
+  opacity: 1;
+  background: #3b5998;
+  color: #fff;
+}
+.feedback .feedback-modal {
+  position: fixed;
+  right: 0;
+  bottom: 10px;
+  width: 300px;
+  height: auto;
+  background: #fff;
+  z-index: 999;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 2px 2px #ccc;
+}
+.feedback .feedback-modal .feedback-active {
+  color: #ff7f0e;
+}
+.feedback .feedback-modal h3 {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.feedback .feedback-modal textarea {
+  width: 100%;
+  height: 75px;
+  margin-bottom: 10px;
+}
+.feedback .thank-you {
+  color: #fff;
+}
+.feedback .thank-you.success-feedback {
+  background: #2d7623;
+}
+.feedback .thank-you.error-feedback {
+  background: #cc0000;
+}
+.feedback .feedback-close {
+  right: 10px;
+  position: absolute;
+  font-size: 20px;
+  cursor: pointer;
+}

@@ -1,0 +1,61 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.view-container > .view {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+}
+.view-container {
+  position: relative;
+}
+.view-container > .view.with-rows {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.view-container > .view > main,
+.view-container > .view section,
+.view-container > .view aside {
+  padding: 0;
+  overflow: auto;
+}
+.view-container > .view > .view-content {
+  position: relative;
+  padding-top: 0;
+}
+.dropdown a {
+  color: #fff;
+}
+.dropdown a:hover {
+  text-decoration: none;
+}
+.btn {
+  min-width: 90px;
+}
+/* stylelint-disable */
+.toolbar-pf {
+  box-shadow: none !important;
+}
+/* stylelint-enable */
+.toolbar-pf-results {
+  border-top: 1px solid;
+  border-top-color: #d1d1d1;
+}

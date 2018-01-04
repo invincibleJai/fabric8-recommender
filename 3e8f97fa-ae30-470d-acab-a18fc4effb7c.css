@@ -1,0 +1,29 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.toast-notification-container {
+  position: fixed;
+  top: 36px;
+  right: 50px;
+  z-index: 10;
+  width: 630px;
+}
+.toast-notification-container .toast-notification-wrapper {
+  width: 100%;
+}
+.toast-notification-container .toast-notification-wrapper .toast-wrapper a {
+  margin-left: 20px;
+}

@@ -1,0 +1,201 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.stack-report-inshort .error-class {
+  background: #fff;
+  border: none;
+  text-align: center;
+}
+.stack-report-inshort .error-class .container-progress {
+  width: 50%;
+  margin: 100px auto 0;
+}
+.stack-report-inshort .center-text {
+  margin: 0 auto;
+  text-align: center;
+}
+.stack-report-inshort .active-menu-item .nav-link.active {
+  color: #000;
+  font-weight: bold;
+}
+.stack-report-inshort .pre-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 99;
+}
+.stack-report-inshort .pre-loader .pre-loader-spinner {
+  top: 50%;
+}
+.stack-report-inshort .stack-report-snippet .findings-inshort {
+  font-size: 12px;
+  margin: 10px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort {
+  display: flex;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box h3 {
+  background: #ededed;
+  margin: 0;
+  height: 40px;
+  padding: 5px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box h3 span {
+  font-size: 12px;
+  font-weight: bold;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box h3 p {
+  margin: 0 0 0 10px;
+  font-size: 10px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content {
+  align-items: center;
+  display: flex;
+  flex: 4;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .flex-1 {
+  flex: 1;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .flex-2 {
+  flex: 2;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content.usage-outlier {
+  flex: 4;
+  justify-content: center;
+  padding: 0 10px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content.license-area {
+  text-align: center;
+  flex: 4;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content.license-area .c3-chart-arcs-title {
+  font-size: 10px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content.license-area f8-chart {
+  margin: 0 auto;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .metric {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  color: #8b8d8f;
+  font-weight: bold;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .metric span {
+  margin: 0 auto;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .metric-license-status {
+  font-size: 17px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-box .stat-content .metric-desc {
+  font-size: 14px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort:after {
+  content: '';
+  display: block;
+  float: none;
+  clear: both;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .width-20 {
+  width: 20%;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .width-40 {
+  width: 40%;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container {
+  margin: 10px 5px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  flex: 1;
+  align-items: stretch;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.outlier-stat {
+  flex: 2;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.stack-license-stat {
+  flex: 2;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.stack-license-stat .failure-text {
+  padding: 0 5px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat {
+  flex: 1;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cve-message {
+  font-size: 12px;
+  color: #777;
+  font-weight: 100;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-id {
+  font-size: 10px;
+  font-weight: 100;
+  margin-top: 5px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-id i {
+  font-size: 12px;
+  cursor: pointer;
+  color: #ff7f0e;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-id i.warning-red-color:before {
+  color: #cc0000;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-data {
+  margin-top: 10px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-data > div {
+  position: relative;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-data > div .cvss-score {
+  font-size: 12px;
+  font-weight: 100;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-data > div .cvss-score-label {
+  font-size: 12px;
+  font-weight: 100;
+  bottom: 6px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .cvss-data > div .cvss-score-label .label-1 {
+  font-size: 12px;
+}
+.stack-report-inshort .stack-report-snippet .summary-inshort .stat-container.security-issues-stat .progress-bar {
+  cursor: pointer;
+}
+.stack-report-inshort .stack-report-snippet .recommendations-inshort .recommendation-components:before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: #030303;
+  margin-left: 5px;
+}
+.stack-report-inshort .stack-report-snippet .recommendations-inshort .recommendation-components .reco-text {
+  padding: 3px;
+}
+.stack-report-inshort .show-full-report {
+  margin: 10px 0 10px 10px;
+}

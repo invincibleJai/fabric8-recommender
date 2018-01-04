@@ -1,0 +1,169 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+.base-container-layout,
+.stack-recommendation {
+  padding: 10px 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.stack-recommendation .strike-text {
+  text-decoration: line-through;
+  -moz-text-decoration: line-through;
+  -webkit-text-decoration: line-through;
+}
+.stack-recommendation .strike-color {
+  /* stylelint-disable */
+  color: #bbb !important;
+  /* stylelint-enable */
+}
+.stack-recommendation .default-button-state {
+  background: #fff;
+  color: #ccc;
+  box-shadow: none;
+}
+.stack-recommendation .create-work-item {
+  margin-right: 5px;
+}
+.stack-recommendation .recommendation-header {
+  padding-right: 10px;
+}
+.stack-recommendation .recommendation-header .recommender-action-group {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.stack-recommendation .recommendation-header:after {
+  content: '';
+  clear: both;
+  float: none;
+  display: block;
+}
+.stack-recommendation .keep-left {
+  float: left;
+}
+.stack-recommendation .keep-right {
+  float: right;
+}
+.stack-recommendation .recommendation-group-item {
+  border: 1px solid;
+  border-color: #f5f5f5;
+  border-left: 0;
+  border-right: 0;
+}
+.stack-recommendation .recommendation-group-item.active {
+  z-index: unset;
+}
+.stack-recommendation .recommendation-group-item .show-drop {
+  display: block;
+}
+.stack-recommendation .recommendation-group-item.top-level-selection {
+  position: relative;
+}
+.stack-recommendation .recommendation-group-item .list-view-pf-checkbox,
+.stack-recommendation .recommendation-group-item .list-view-pf-actions,
+.stack-recommendation .recommendation-group-item .list-view-pf-main-info {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+.stack-recommendation .recommendation-group-item .list-view-pf-main-info {
+  display: flex;
+}
+.stack-recommendation .recommendation-group-item .list-view-pf-main-info .list-group-item-text {
+  /* stylelint-disable */
+  width: 100% !important;
+  /* stylelint-enable */
+}
+.stack-recommendation .recommendation-group-item .pficon-info {
+  font-size: 22px;
+}
+.stack-recommendation .recommendation-group-item .main-text-info {
+  font-weight: bold;
+}
+.stack-recommendation .recommendation-group-item .strike-through-class {
+  @extend .strike-color;
+  @include strike-text;
+}
+.stack-recommendation .recommendation-group-item .each-work-item {
+  @extend .default-button-state;
+  color: #555;
+}
+.stack-recommendation .recommendation-group-item button {
+  outline: none;
+}
+.stack-recommendation .recommendation-group-item button.dropdown-toggle {
+  text-align: right;
+  font-size: 16px;
+  color: #030303;
+  min-width: 30px;
+}
+.stack-recommendation .recommendation-container {
+  border: 0;
+}
+.stack-recommendation .recommendation-container .no-recommendations {
+  border: 0;
+}
+.stack-recommendation .recommendation-container .no-recommendations.list-group-item {
+  padding-left: 0;
+  padding-right: 0;
+}
+.stack-recommendation .recommendation-container .list-group-item {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+.stack-recommendation .recommendation-container .list-view-pf-checkbox {
+  border-right: 0;
+}
+.stack-recommendation .recommendation-container .select-all-container {
+  height: 45px;
+  margin: 0;
+  background: #f5f5f5;
+}
+.stack-recommendation .recommendation-container .select-all-container:after {
+  content: '';
+  float: none;
+  clear: both;
+  display: block;
+}
+.stack-recommendation .recommendation-container .select-all-container .list-view-pf-checkbox {
+  margin: 0;
+  padding: 0;
+}
+.stack-recommendation .recommendation-container .select-all-container .list-view-pf-checkbox .select-all-check:hover {
+  cursor: pointer;
+}
+.stack-recommendation .recommendation-container .work-item-response {
+  margin: 10px 0;
+}
+.stack-recommendation .dismissed {
+  text-decoration: line-through;
+  color: #ccc;
+}
+.stack-recommendation .deactivate {
+  color: #ccc;
+  cursor: default;
+}
+.stack-recommendation .deactivate:hover {
+  background: #ccc;
+}
+.stack-recommendation .deactivate a {
+  color: inherit;
+  cursor: auto;
+}
+.stack-recommendation .activate {
+  cursor: pointer;
+}

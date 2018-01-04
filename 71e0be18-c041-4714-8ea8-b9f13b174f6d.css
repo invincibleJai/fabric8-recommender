@@ -1,0 +1,25 @@
+@media screen and (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 767px) {
+}
+@media (max-width: 767px) {
+}
+/* stylelint-disable */
+.toolbar-pf {
+  box-shadow: none !important;
+}
+/* stylelint-enable */
+.toolbar-pf-results {
+  border-top: 1px solid;
+  border-top-color: #d1d1d1;
+}
