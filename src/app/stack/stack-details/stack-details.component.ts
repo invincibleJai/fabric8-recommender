@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Component, Input, OnChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {StackAnalysesService} from '../stack-analyses.service';
-import {getStackReportModel} from '../utils/stack-api-utils';
-import {StackReportModel, ResultInformationModel, UserStackInfoModel, ComponentInformationModel, RecommendationsModel} from '../models/stack-report.model';
+import { StackAnalysesService } from '../stack-analyses.service';
+import { getStackReportModel } from '../utils/stack-api-utils';
+import { StackReportModel, ResultInformationModel, UserStackInfoModel,
+    ComponentInformationModel, RecommendationsModel } from '../models/stack-report.model';
 
 @Component({
     selector: 'stack-details',
@@ -14,6 +15,7 @@ import {StackReportModel, ResultInformationModel, UserStackInfoModel, ComponentI
 })
 
 export class StackDetailsComponent implements OnChanges {
+    @Input() gatewayConfig: any;
     @Input() stack: string;
     @Input() displayName;
     @Input() repoInfo;
@@ -41,7 +43,7 @@ export class StackDetailsComponent implements OnChanges {
     public componentFilterBy: string = '';
     public customClass: string = 'accordion-custom';
     public analysis: any = {};
-
+    public cve_Info: number;
 
     public feedbackConfig: any = {};
 
@@ -65,6 +67,10 @@ export class StackDetailsComponent implements OnChanges {
         this.resetFields();
     }
 
+    public getcve(data: number): void {
+        this.cve_Info = data;
+    }
+
     public tabSelection(tab: any): void {
         if (tab) {
             tab['active'] = true;
@@ -77,7 +83,8 @@ export class StackDetailsComponent implements OnChanges {
                 };
                 this.companionLevelRecommendation = {
                     dependencies: recommendations.companion,
-                    manifestinfo: tab.content.manifest_name
+                    manifestinfo: tab.content.manifest_name,
+                    licenseAnalysis: tab.content.user_stack_info.license_analysis
                 };
                 alternate = recommendations.alternate ? recommendations.alternate.length : 0;
                 companion = recommendations.companion ? recommendations.companion.length : 0;
@@ -89,10 +96,10 @@ export class StackDetailsComponent implements OnChanges {
             if (tab.content && tab.content.user_stack_info) {
                 let userStackInfo: UserStackInfoModel = tab.content.user_stack_info;
                 if (userStackInfo.dependencies) {
-                    analyzed = userStackInfo.dependencies.length;
+                    analyzed = userStackInfo.analyzed_dependencies.length;
                 }
                 if (userStackInfo.analyzed_dependencies) {
-                    total = userStackInfo.analyzed_dependencies.length;
+                    total = userStackInfo.dependencies.length;
                 }
                 if (userStackInfo.unknown_dependencies) {
                     unknown = userStackInfo.unknown_dependencies.length;
@@ -100,14 +107,18 @@ export class StackDetailsComponent implements OnChanges {
             }
 
             this.analysis = {
-                stackLevel: 'Total: ' +  total + ' | Analyzed: ' + analyzed + ' | Unknown: ' + unknown,
-                alternate: '[' + alternate + ' alternate components match your stack composition and may be more appropriate]',
-                companion: '[' + companion + ' additional components are often used by similar stacks]'
+                stackLevel: 'Total: ' +  total + ' | Analyzed: ' + analyzed + ' | Unknown: ' +
+                unknown,
+                alternate: '[' + alternate + ' alternate components match your stack ' +
+                'composition and may be more appropriate]',
+                companion: '[' + companion + ' additional components are often used by ' +
+                'similar stacks]'
             };
             this.componentLevelInformation = {
                 recommendations: recommendations,
-                dependencies: tab.content.user_stack_info.dependencies,
-                manifestinfo: tab.content.manifest_name
+                dependencies: tab.content.user_stack_info.analyzed_dependencies,
+                manifestinfo: tab.content.manifest_name,
+                licenseAnalysis: tab.content.user_stack_info.license_analysis
             };
         }
     }
@@ -200,7 +211,14 @@ export class StackDetailsComponent implements OnChanges {
                     this.tabSelection(this.tabs[0]);
                 }
             });
-        } else {
+        } else if(data && data.hasOwnProperty('error')){
+            this.handleError({
+                message: "Analysis for your stack is in progress...",
+                code: data.statusCode,
+                title: 'Updating ...'
+            });
+        }
+        else {
             this.handleError({
                 message: data.error,
                 code: data.statusCode,
@@ -211,15 +229,17 @@ export class StackDetailsComponent implements OnChanges {
 
     private init(): void {
         if (this.stackResponse && this.cacheResponse !== this.stackResponse) {
+            console.log('stack details', this.stackResponse);
             this.cacheResponse = this.stackResponse;
             // Change this to some other logic
             setTimeout(() => {
                 this.handleResponse(this.stackResponse);
             }, 1000);
         } else {
+            console.log('stack details', this.stack, this.gatewayConfig);
             if (this.stack && this.stack !== '') {
                 this.stackAnalysisService
-                    .getStackAnalyses(this.stack)
+                    .getStackAnalyses(this.stack, this.gatewayConfig)
                     .subscribe((data) => {
                         this.handleResponse(data);
                     },

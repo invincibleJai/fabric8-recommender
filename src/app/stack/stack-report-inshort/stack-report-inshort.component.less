@@ -2,11 +2,15 @@
 
 .stack-report-inshort {
   .error-class {
-    position: relative;
-    margin-top: 100px;
+    background: @color-pf-white;
+    border: none;
     text-align: center;
+    .container-progress {
+      width: 50%;
+      margin: 100px auto 0;
+    }
   }
-  .center-text { margin: 0 auto; }
+  .center-text { margin: 0 auto; text-align: center; }
   .active-menu-item {
     .nav-link {
       &.active {
@@ -64,7 +68,7 @@
             justify-content: center;
             padding: 0 10px;
           }
-          &.chart-area {
+          &.license-area {
             text-align: center;
             flex: 4;
             .c3-chart-arcs-title { font-size: 10px; }
@@ -78,6 +82,9 @@
             color: @color-pf-black-500;
             font-weight: bold;
             span { margin: 0 auto; }
+          }
+          .metric-license-status {
+            font-size: 17px;
           }
           .metric-desc { font-size: 14px; }
         }
@@ -94,11 +101,17 @@
       .stat-container {
         margin: 10px 5px;
         border: 1px solid #ccc;
-        border-radius: 5px;
+        border-radius: 2px;
         flex: 1;
         &.outlier-stat { flex: 2; }
-        &.stack-license-stat { flex: 3; }
+        &.stack-license-stat {
+          flex: 2;
+          .failure-text {
+            padding: 0 5px;
+          }
+        }
         &.security-issues-stat {
+          flex: 1;
           .cve-message {
             font-size: 12px;
             color: #777;
@@ -150,6 +163,10 @@
           background: @color-pf-black;
           margin-left: 5px;
         }
+        .reco-text {
+          padding: 3px;
+        }
+
       }
     }
   }

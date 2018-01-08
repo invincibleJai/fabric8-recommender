@@ -28,15 +28,15 @@
         <table class="table table-striped table-bordered table-hover children-break-word" id="dependenciesTable">
             <thead>
                 <tr>
-                <th [ngClass]="{'small-width': header.class === 'small', 'medium-width': header.class === 'medium', 'large-width': header.class === 'large'}" (click)="handleTableOrderClick(header)" *ngFor="let header of headers">
-                    {{header.name}}
-                    <!--<span *ngIf="header.isSortable" class="fa {{header.sortDirectionClass || sortDirectionClass}}"></span>-->
-                </th>
+                    <th [ngClass]="{'small-width': header.class === 'small', 'medium-width': header.class === 'medium', 'large-width': header.class === 'large'}" (click)="handleTableOrderClick(header)" *ngFor="let header of headers">
+                        {{header.name}}
+                        <!--<span *ngIf="header.isSortable" class="fa {{header.sortDirectionClass || sortDirectionClass}}"></span>-->
+                    </th>
                 </tr>
             </thead>
             <tbody (click)="handleCollapseClick($event)" (hover)="handleHoverState($event)">
-                <tr class="{{dependency['parent-reference'] ? dependency['parent-reference'] : null}}" [ngClass]="{'parent-class': dependency.isParent, 'child-class': dependency.isChild}" *ngFor="let dependency of (dependenciesList | filter: fieldName)">
-                    <td ellipsis data-id="{{dependency.compId}}">
+                <tr [tooltip]="dependency['reason'] ? dependency['reason'] : null" class="{{dependency['parent-reference'] ? dependency['parent-reference'] : null}}" [ngClass]="{'parent-class': dependency.isParent, 'child-class': dependency.isChild}" *ngFor="let dependency of (dependenciesList | filter: fieldName)">
+                    <td  data-id="{{dependency.compId}}">
                         <span>
                             <i [ngClass]="{'fa': true, 'fa-reply relation-icon': dependency.isChild, 'fa-database': dependency.isParent || isCompanion === true, 'parent-icon': dependency.isParent, 'companion': isCompanion === true}" aria-hidden="true" *ngIf="dependency.isChild || dependency.isParent || isCompanion === true"></i>
                         </span>
@@ -52,12 +52,32 @@
                         <i title="{{dependency.has_issue ? 'CVE Score: ' + dependency.security_issue: null}}" [ngClass]="{'fa': true, 'insecure fa-ban': dependency.has_issue === true, 'secure fa-check-circle-o': dependency.has_issue === false}" aria-hidden="true"></i>
                     </td>
                     <td ellipsis>
-                        <i *ngIf="dependency.license_analysis && dependency.license_analysis.status && dependency.license_analysis.status.toLowerCase() === 'unknown'" [ngClass]="{'fa outlier-icon': true, 'unknown-license': dependency.license_analysis.status.toLowerCase() === 'unknown', 'conflict-license': dependency.license_analysis.status.toLowerCase() === 'conflict'}"></i>
-                        {{dependency.license}}
+                        <i *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'outlier'" [ngClass]="{'fa outlier-icon': true}"></i>
+                        <i *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'reallyunknown'" [ngClass]="{'unknown-license': true}"></i>
+                        <i *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'licenseconflict'" [ngClass]="{'conflict-license': true}"></i>
+                        <span *ngFor="let license of dependency.licenses; let i = index">
+                            <span 
+                                *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'outlier'" 
+                                [ngClass]="{'outlier-license-text': isOutliedLicense(dependency, license)}">
+                                {{ license }}
+                            </span>
+                            <span 
+                                *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'reallyunknown'" 
+                                [ngClass]="{'unknown-license-text': isUnknownLicense(dependency, license)}">
+                                {{ license }}
+                            </span>
+                            <span 
+                                *ngIf="dependency.license_analysis && dependency.license_analysis.licensestatus && dependency.license_analysis.licensestatus.toLowerCase() === 'licenseconflict'" 
+                                [ngClass]="{'conflict-license-text': isConflictLicense(dependency, license)}">
+                                {{ license }}
+                            </span>
+                            <span *ngIf="isNormalLicense(dependency)">
+                                {{ license }}
+                            </span>
+                            <span *ngIf="i < dependency.licenseCount - 1">, </span>
+                        </span>
+                        <div class="text-center" *ngIf="dependency && dependency.licenses && dependency.licenses.length === 0">-</div>
                     </td>
-                    <!--<td class="text-center">
-                        <sentiment *ngIf="dependency.sentiment_score" [score]="dependency.sentiment_score"></sentiment>
-                    </td>-->
                     <td class="text-center">{{dependency.osio_user_count}}</td>
                     <td ellipsis class="github-stats">
                         <span *ngIf="dependency.github_user_count > -1">Usage Count: {{dependency.github_user_count}},</span>
@@ -72,7 +92,8 @@
                             <span ellipsis>{{used_by.name}}</span> <i class="fa fa-star used-by-icon" aria-hidden="true"></i>{{used_by.stars}}
                         </span>
                     </td>
-                    <td ellipsis>{{dependency.categories}}</td>
+                    <td  [innerHTML]="dependency.categories" ></td>
+                    <td class="text-center" *ngIf="isCompanion === true">{{dependency['confidence_reason']}}%</td>
                     <td class="action" (click)="dependency.action && handleCreateWIclick(dependency, $event)">{{dependency.action}}</td>
                 </tr>
             </tbody>

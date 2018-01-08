@@ -1,9 +1,10 @@
-import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {StackAnalysesService} from '../stack-analyses.service';
-import {getStackReportModel} from '../utils/stack-api-utils';
+import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { StackAnalysesService } from '../stack-analyses.service';
+import { getStackReportModel } from '../utils/stack-api-utils';
 
-import {StackReportModel, ResultInformationModel, UserStackInfoModel, RecommendationsModel, ComponentInformationModel} from '../models/stack-report.model';
+import { StackReportModel, ResultInformationModel, UserStackInfoModel,
+    RecommendationsModel, ComponentInformationModel } from '../models/stack-report.model';
 
 @Component({
     selector: 'stack-report-inshort',
@@ -14,21 +15,23 @@ import {StackReportModel, ResultInformationModel, UserStackInfoModel, Recommenda
 })
 
 export class StackReportInShortComponent implements OnChanges {
+    @Input() gatewayConfig: any;
     @Input() stackUrl;
     @Input() repoInfo;
     @Input() buildNumber;
     @Input() appName;
+    @Input() pipeline;
 
     public tabs: Array<any> = [];
     public result: StackReportModel;
     public stackLevel: UserStackInfoModel;
     public recommendations: RecommendationsModel;
-    public licenseInfo: any;
     public securityInfo: any;
     public stackLevelOutliers: any;
     public dataLoaded: boolean = false;
     public error: any;
-    public licenseOutliers: number = 0;
+    public progress: any;
+    public licenseAnalysis: any;
 
     private cache: string = '';
 
@@ -38,27 +41,35 @@ export class StackReportInShortComponent implements OnChanges {
         if (this.stackUrl && this.stackUrl !== this.cache) {
             this.cache = this.stackUrl;
             this.dataLoaded = false;
+            console.log('inshort component', this.stackUrl, this.gatewayConfig);
             this.stackAnalysisService
-                .getStackAnalyses(this.stackUrl)
+                .getStackAnalyses(this.stackUrl, this.gatewayConfig)
                 .subscribe((data) => {
                     if (data && (!data.hasOwnProperty('error') && Object.keys(data).length !== 0)) {
-                        let resultInformation: Observable<StackReportModel> = getStackReportModel(data);
+                        let resultInformation: Observable<StackReportModel> =
+                            getStackReportModel(data);
                         if (resultInformation) {
                             resultInformation.subscribe((response) => {
                                 this.result = response;
                                 this.buildReportInShort();
                             });
                         }
+                    } else if (data && data.hasOwnProperty('error')) {
+                        // Handle Errors here 'API error'
+                        this.handleProgress({
+                            title: 'Analysis for your stack is in progress...'
+                        });
                     } else {
                         // Handle Errors here 'API error'
                         this.handleError({
-                            title: data.error
+                            title: 'We encountered an unexpected server error',
+                            detail: data.error
                         });
                     }
                 }, error => {
                     // Handle server errors here
                     this.handleError({
-                        title: 'Something unexpected happened'
+                        title: 'We encountered an unexpected server error'
                     });
                 });
         } else {
@@ -68,6 +79,11 @@ export class StackReportInShortComponent implements OnChanges {
 
     public handleError(error: any): void {
         this.error = error;
+        this.dataLoaded = true;
+    }
+
+    public handleProgress(data: any): void {
+        this.progress = data;
         this.dataLoaded = true;
     }
 
@@ -95,13 +111,13 @@ export class StackReportInShortComponent implements OnChanges {
     }
 
     private handleSecurityInformation(tab: UserStackInfoModel): void {
-        let dependencies: Array<ComponentInformationModel> = tab.dependencies;
+        let dependencies: Array<ComponentInformationModel> = tab.analyzed_dependencies;
         let security: Array<any> = [];
         let temp: Array<any> = [];
-        
+
         dependencies.forEach((dependency) => {
             security = dependency.security;
-            if (security.length > 0) {
+            if (security && security.length > 0) {
                 let max: any = security.reduce((a, b) => {
                     return parseFloat(a['CVSS']) < parseFloat(b['CVSS']) ? b : a;
                 });
@@ -140,92 +156,46 @@ export class StackReportInShortComponent implements OnChanges {
     }
 
     private handleLicenseInformation(tab: UserStackInfoModel): void {
-
-        let licenses: any = {};
-        let columnData: Array<Array<any>> = [];
-        let columnDataLength: number = 0;
-        let otherLicensesArray: Array<string> = [];
-        let otherLicensesRatio: any = 0;
-
-        let temp: Array<any> = [];
-        this.licenseOutliers = 0;
-        tab.dependencies.forEach((t) => {
-            t.licenses.forEach((license) => {
-                if (!licenses[license]) {
-                    licenses[license] = 1;
-                } else {
-                    ++ licenses[license];
-                }
-            });
-            if (t.license_analysis && t.license_analysis.status && t.license_analysis.status.toLowerCase() === 'unknown') {
-                ++ this.licenseOutliers;
-            }
-        });
-        for (let i in licenses) {
-            if (licenses.hasOwnProperty(i)) {
-                // Push names and count to be in this structure ['Name', 20] for C3
-                temp = [];
-                temp.push(i);
-                temp.push(licenses[i]);
-                columnData.push(temp);
-            }
-        }
-        // sort the data array by license count
-        columnData = this.sortChartColumnData(columnData);
-        columnDataLength = columnData ? columnData.length : 0;
-        if (columnDataLength > 4) {
-            for (let i = 3; i < columnDataLength; i++) {
-                otherLicensesArray.push(columnData[i][0]);
-                otherLicensesRatio += columnData[i][1];
-            }
-            columnData.splice(4);
-            columnData[3][0] = 'Others';
-            columnData[3][1] = otherLicensesRatio;
-        }
-        this.licenseInfo = {
-            data: {
-                columns: columnData,
-                type: 'donut',
-                labels: false
-            },
-            chartOptions: {
-                size: {
-                    height: 100,
-                    width: 100
-                },
-                donut: {
-                    width: 13,
-                    label: {
-                        show: false
-                    },
-                    title: columnDataLength + ' Licenses'
-                }
-            },
-            configs: {
-                legend: {
-                    show: false
-                },
-                tooltip: {
-                    format: {
-                        name: (name, ratio, id, index) => {
-                            if (name === 'Others') {
-                                return otherLicensesArray.toString();
-                            }
-                            return name;
-                        },
-                        value: (value, ratio, id, index) => {
-                            return (ratio * 100).toFixed(2) + '%';
-                        }
-                    }
-                }
-            }
+        this.licenseAnalysis = {
+            licenseOutliersCount: 0,
+            licenseStackConflictCount: 0,
+            licenseComponentConflictCount: 0,
+            licenseUnknownCount: 0,
+            stackLicenseText: '',
+            status: ''
         };
+
+        if (tab.license_analysis) {
+          this.licenseAnalysis.licenseOutliersCount =
+              tab.license_analysis.outlier_packages ?
+                  tab.license_analysis.outlier_packages.length : 0;
+          this.licenseAnalysis.licenseStackConflictCount =
+              tab.license_analysis.conflict_packages ?
+                  tab.license_analysis.conflict_packages.length : 0;
+          if (tab.license_analysis.unknown_licenses) {
+            this.licenseAnalysis.licenseUnknownCount =
+                tab.license_analysis.unknown_licenses.really_unknown ?
+                    tab.license_analysis.unknown_licenses.really_unknown.length : 0;
+            this.licenseAnalysis.licenseComponentConflictCount =
+                tab.license_analysis.unknown_licenses.component_conflict ?
+                    tab.license_analysis.unknown_licenses.component_conflict.length : 0;
+          }
+
+          this.licenseAnalysis.stackLicenseText = tab.license_analysis.f8a_stack_licenses[0];
+
+          if (tab.license_analysis.status) {
+            this.licenseAnalysis.status = tab.license_analysis.status;
+          } else {
+              this.licenseAnalysis.status = 'nolicensedata';
+          }
+        }
     }
 
     private resetFields(): void {
         this.securityInfo = null;
         this.stackLevelOutliers = null;
         this.stackLevel = null;
+        this.licenseAnalysis = null;
     }
 
     private buildReportInShort(): void {

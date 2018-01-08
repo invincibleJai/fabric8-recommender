@@ -1,6 +1,9 @@
 @import (reference) '../../../assets/stylesheets/shared/main.less';
 
 .component-information {
+  & > .table-responsive {
+    overflow: visible;
+  }
   table {
     font-size: 13px;
     table-layout: fixed;
@@ -12,7 +15,6 @@
     }
     td {
       vertical-align: middle;
-      padding: 10px;
       background: @color-pf-white;
     }
     .child-class, .parent-class {
@@ -140,6 +142,10 @@
     /* stylelint-disable */
     background: #ed7b01 !important;
     color: @color-pf-white !important;
+    font-size: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 3px;
     /* stylelint-enable */
     &:after {
       content: 'L';
@@ -149,9 +155,24 @@
     /* stylelint-disable */
     background: @color-pf-red-100 !important;
     color: @color-pf-white !important;
+    font-size: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 3px;
     /* stylelint-enable */
     &:after {
       content: 'L';
     }
+  }
+  .outlier-license-text {
+    font-weight: bold;
+  }
+  .unknown-license-text {
+    color: #ed7b01;
+    font-weight: bold;
+  }
+  .conflict-license-text {
+    color: @color-pf-red-100;
+    font-weight: bold;
   }
 }
