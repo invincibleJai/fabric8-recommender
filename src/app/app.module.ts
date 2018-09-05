@@ -13,7 +13,7 @@ import { ApiLocatorService } from './shared/api-locator.service';
 import { authApiUrlProvider } from './shared/auth-api.provider';
 import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { realmProvider } from './shared/realm-token.provider';
-// import { MockAuthenticationService } from './shared/mock-auth.service';
+import { MockAuthenticationService } from './shared/mock-auth.service';
 
 // Imports stackdetailsmodule
 import { StackDetailsModule } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/stack-details/stack-details.module';
