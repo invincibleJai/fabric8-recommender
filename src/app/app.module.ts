@@ -22,6 +22,8 @@ import { StackReportInShortModule } from '../../projects/fabric8-stack-analysis-
 // import { StackReportInShortModule } from './stack/stack-report-inshort/stack-report-inshort.module';
 
 import { AppRoutingModule } from './app.routing';
+import { StackAnalysesService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/stack-analyses.service';
+import { CommonService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/utils/common.service';
 
 @NgModule({
   imports: [
@@ -35,6 +37,7 @@ import { AppRoutingModule } from './app.routing';
   providers: [
     Broadcaster,
     ApiLocatorService,
+    CommonService,
     witApiUrlProvider,
     authApiUrlProvider,
     ssoApiUrlProvider,
@@ -42,6 +45,7 @@ import { AppRoutingModule } from './app.routing';
     {
       provide: AuthenticationService, useClass: MockAuthenticationService
     },
+    { provide: StackAnalysesService, deps: [AuthenticationService]},
     Contexts
   ],
   bootstrap:    [ AppComponent ]
