@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { Broadcaster } from 'ngx-base';
-import { Contexts } from 'ngx-fabric8-wit';
+import { Contexts,  WIT_API_URL } from 'ngx-fabric8-wit';
 import { AuthenticationService, AUTH_API_URL, SSO_API_URL } from 'ngx-login-client';
 
 import { AppComponent } from './app.component';
@@ -27,6 +27,7 @@ import { AppRoutingModule } from './app.routing';
 import { CommonService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/utils/common.service';
 import { StackAnalysesService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/stack-analyses.service';
 import { AddWorkFlowService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/stack-details/add-work-flow.service';
+import { ComponentFeedbackService } from '../../projects/fabric8-stack-analysis-ui/src/lib/stack/utils/component-feedback/component-feedback.service';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { AddWorkFlowService } from '../../projects/fabric8-stack-analysis-ui/src
       provide: AuthenticationService, useClass: MockAuthenticationService
     },
     { provide: StackAnalysesService, useClass: StackAnalysesService, deps: [HttpClient, AuthenticationService]},
-    { provide: AddWorkFlowService, useClass: AddWorkFlowService, deps: [HttpClient, AuthenticationService, AUTH_API_URL]},
+    { provide: AddWorkFlowService, useClass: AddWorkFlowService, deps: [HttpClient, AuthenticationService, WIT_API_URL, Contexts]},
+    { provide: ComponentFeedbackService, useClass: ComponentFeedbackService, deps: [HttpClient, AuthenticationService]},
     Contexts
   ],
   bootstrap:    [ AppComponent ]

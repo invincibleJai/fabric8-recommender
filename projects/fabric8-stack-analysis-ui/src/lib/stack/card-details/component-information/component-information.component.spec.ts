@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 
+import { Observable, of } from 'rxjs';
+
 import { ComponentInformationComponent } from './component-information.component';
 import { AddWorkFlowService } from '../../stack-details/add-work-flow.service';
 
@@ -30,6 +32,18 @@ import {
     MGithub,
     MOsio
 } from '../../models/ui.model';
+
+
+const mockAddWorkFlowService = {
+    addWorkFlow(): Observable<any> {
+      const wfDetails = of( <any>{
+        links: { self: 'https://openshift.io/api/spaces/41006333-2d18-4de8-98f8-8d00d0196e15/workitems'},
+        type: 'workitems',
+        id: 'b682f960-0df2-479f-ba16-aec7c0c6f117'
+      });
+      return wfDetails;
+    }
+  };
 
 describe ('ComponentInformationComponent', () => {
     let component: ComponentInformationComponent;
@@ -93,7 +107,6 @@ describe ('ComponentInformationComponent', () => {
             ],
             providers: [
                 Contexts,
-                AddWorkFlowService,
                 witApiUrlProvider,
                 ApiLocatorService,
                 authApiUrlProvider,
@@ -101,6 +114,10 @@ describe ('ComponentInformationComponent', () => {
                 realmProvider,
                 {
                     provide: AuthenticationService, useClass: MockAuthenticationService
+                },
+                {
+                    provide: AddWorkFlowService,
+                    useValue: mockAddWorkFlowService
                 }
             ]
         }).compileComponents();

@@ -33,6 +33,8 @@ import { CardDetailsModule } from '../card-details/card-details.module';
 import { CommonService } from '../utils/common.service';
 /** Stack Report Revamp - Latest */
 
+import { StackAnalysesService } from '../stack-analyses.service';
+
 const revampImports = [
   ReportSummaryModule,
   CardDetailsModule
@@ -71,7 +73,8 @@ describe ('StackDetailsComponent', () => {
                     provide: AuthenticationService, useClass: MockAuthenticationService
                 },
                 Contexts,
-                CommonService
+                CommonService,
+                StackAnalysesService
             ]
         }).compileComponents();
     }));
