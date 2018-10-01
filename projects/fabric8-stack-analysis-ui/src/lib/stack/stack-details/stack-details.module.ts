@@ -21,6 +21,8 @@ import { CommonService } from '../utils/common.service';
 /** Stack Report Revamp - Latest */
 
 import { StackAnalysesService } from '../stack-analyses.service';
+import { AddWorkFlowService } from './add-work-flow.service';
+import { Contexts } from 'ngx-fabric8-wit';
 
 const revampImports = [
   ReportSummaryModule,
@@ -47,7 +49,7 @@ const revampImports = [
   providers: [
     GlobalConstants,
     CommonService,
-    StackAnalysesService
+    StackAnalysesService, AddWorkFlowService, Contexts
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
