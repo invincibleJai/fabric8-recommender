@@ -18,6 +18,8 @@ import { AddWorkFlowService } from '../../stack-details/add-work-flow.service';
 
 import { NoDataComponent } from './no-data/no-data.component';
 
+import { Space, Contexts } from 'ngx-fabric8-wit';
+
 const components = [
     ComponentSnippetComponent,
     ComponentInformationComponent,
@@ -41,7 +43,7 @@ const imports = [
     declarations: [
         ...components
     ],
-    providers: [ AddWorkFlowService ],
+    providers: [ AddWorkFlowService , Contexts],
     exports: [
         ...components
     ]

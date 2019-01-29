@@ -94,6 +94,10 @@ export class StackReportInShortComponent implements OnChanges {
         tab['active'] = true;
         let currentIndex: number = tab['index'];
         this.stackLevel = tab.content.user_stack_info;
+        if (this.stackLevel.analyzed_dependencies && this.stackLevel.analyzed_dependencies.length) {
+            this.stackLevel.analyzed_direct_dependencies_count =
+            this.stackLevel.analyzed_dependencies.filter(dep => !dep.hasOwnProperty('transitive')).length;
+        }
         this.recommendations = tab.content.recommendation;
         if (this.recommendations) {
             this.stackLevelOutliers = {
@@ -223,6 +227,7 @@ export class StackReportInShortComponent implements OnChanges {
             this.tabSelection(this.tabs[0]);
             this.dataLoaded = true;
             this.error = null;
+            this.progress = null;
         }
     }
 

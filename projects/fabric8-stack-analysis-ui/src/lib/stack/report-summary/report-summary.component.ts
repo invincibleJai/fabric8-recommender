@@ -25,10 +25,7 @@ import {
   MReportSummaryCard,
   MReportSummaryContent,
   MReportSummaryInfoEntry,
-  MReportSummaryTitle,
-  MSecurityDetails,
-  MSecurityIssue,
-  MProgressMeter
+  MReportSummaryTitle
 } from '../models/ui.model';
 import {
   ReportSummaryUtils
@@ -105,49 +102,6 @@ export class ReportSummaryComponent implements OnInit, OnChanges {
     }
   }
 
-  private newCardInstance(): MReportSummaryCard {
-    let newCard: MReportSummaryCard = new MReportSummaryCard();
-    newCard.reportSummaryContent = new MReportSummaryContent();
-    newCard.reportSummaryTitle = new MReportSummaryTitle();
-    return newCard;
-  }
-
-  private getComponentSecurityInformation(component: ComponentInformationModel): MSecurityDetails {
-    if (component) {
-      let securityDetails: MSecurityDetails = new MSecurityDetails();
-      let securityIssues = 0;
-      let maxIssue: SecurityInformationModel = null,
-        temp: SecurityInformationModel = null;
-      if (component.security && component.security.length > 0) {
-        let currSecurity: Array < SecurityInformationModel > = component.security;
-        temp = currSecurity.reduce((a, b) => {
-          return parseFloat(a.CVSS) < parseFloat(b.CVSS) ? b : a;
-        });
-        if (temp) {
-          if (maxIssue === null || maxIssue.CVSS < temp.CVSS) {
-            maxIssue = temp;
-          }
-        }
-        securityIssues += currSecurity.length;
-      }
-      if (maxIssue) {
-        securityDetails.highestIssue = new MSecurityIssue(
-          maxIssue.CVSS,
-          maxIssue.CVE
-        );
-        securityDetails.progressReport = new MProgressMeter(
-          '',
-          Number(maxIssue.CVSS),
-          Number(maxIssue.CVSS) >= 7 ? '#ff6162' : 'ORANGE',
-          '',
-          Number(maxIssue.CVSS) * 10
-        );
-      }
-      securityDetails.totalIssues = securityIssues;
-      return securityDetails;
-    }
-    return null;
-  }
 
   private getSecurityReportCard(): MReportSummaryCard {
     return this.reportSummaryUtils.getSecurityReportCard(this.report.user_stack_info);
@@ -174,26 +128,47 @@ export class ReportSummaryComponent implements OnInit, OnChanges {
       this.report.user_stack_info) {
       let userStackInfo: UserStackInfoModel = this.report.user_stack_info;
 
-      let analyzedCount: number, totalCount: number, unknownCount: number;
-      analyzedCount = userStackInfo.analyzed_dependencies ? userStackInfo.analyzed_dependencies.length : 0;
+      let totalCount: number, unknownCount: number, analyzedTransCount = 0, analyzedDirectCount = 0;
+      // analyzedCount = userStackInfo.analyzed_dependencies ? userStackInfo.analyzed_dependencies.length : 0;
       totalCount = userStackInfo.dependencies ? userStackInfo.dependencies.length : 0;
-      unknownCount = userStackInfo.unknown_dependencies ? userStackInfo.unknown_dependencies.length : totalCount - analyzedCount;
+      unknownCount = userStackInfo.unknown_dependencies ? userStackInfo.unknown_dependencies.length : 0;
+      if (userStackInfo && userStackInfo.hasOwnProperty('transitive_count')) {
+        analyzedTransCount = userStackInfo.transitive_count;
+      }
+
+      userStackInfo.analyzed_dependencies.forEach((analyzed) => {
+        if (!analyzed.hasOwnProperty('transitive')) {
+          analyzedDirectCount = analyzedDirectCount + 1;
+        }
+      });
 
       let totalEntry: MReportSummaryInfoEntry = new MReportSummaryInfoEntry();
       totalEntry.infoText = 'Total Dependencies';
       totalEntry.infoValue = totalCount;
 
       let analyzedEntry: MReportSummaryInfoEntry = new MReportSummaryInfoEntry();
-      analyzedEntry.infoText = 'Analyzed Dependencies';
-      analyzedEntry.infoValue = analyzedCount;
+      analyzedEntry.infoText = 'Analyzed Direct Dependencies';
+      // analyzedEntry.infoValue = analyzedCount;
+
+      let analyzedTransEntry: MReportSummaryInfoEntry = new MReportSummaryInfoEntry();
+      analyzedTransEntry.infoText = 'Analyzed Transitive Dependencies';
+      analyzedTransEntry.infoValue = analyzedTransCount;
 
       let unknownEntry: MReportSummaryInfoEntry = new MReportSummaryInfoEntry();
       unknownEntry.infoText = 'Unknown Dependencies';
       unknownEntry.infoValue = unknownCount;
 
-      componentDetailsCard.reportSummaryContent.infoEntries.push(totalEntry);
-      componentDetailsCard.reportSummaryContent.infoEntries.push(analyzedEntry);
-      componentDetailsCard.reportSummaryContent.infoEntries.push(unknownEntry);
+      if (analyzedTransCount && analyzedTransCount > 0) {
+        analyzedEntry.infoValue = analyzedDirectCount;
+        componentDetailsCard.reportSummaryContent.infoEntries.push(analyzedEntry);
+        componentDetailsCard.reportSummaryContent.infoEntries.push(analyzedTransEntry);
+        componentDetailsCard.reportSummaryContent.infoEntries.push(unknownEntry);
+      } else {
+        analyzedEntry.infoValue = analyzedDirectCount;
+        componentDetailsCard.reportSummaryContent.infoEntries.push(totalEntry);
+        componentDetailsCard.reportSummaryContent.infoEntries.push(analyzedEntry);
+        componentDetailsCard.reportSummaryContent.infoEntries.push(unknownEntry);
+      }
     } else {
       // Handle no user dependencies scenario
     }

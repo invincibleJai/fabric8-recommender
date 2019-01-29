@@ -1,5 +1,5 @@
 <div class="stack-report-inshort">
-  <div *ngIf="!error || !progress">
+  <div *ngIf="!error && !progress" class="mainLayout">
     <tabset *ngIf="tabs && tabs.length > 0">
       <tab *ngFor="let tabz of tabs" (select)="tabSelection(tabz)"
         [customClass]="tabz.active ? 'active-menu-item' : 'inactive-menu'">
@@ -12,7 +12,7 @@
           <div class="col-sm-7">
             Dependencies: [
             <b>Total: {{stackLevel && stackLevel.dependencies && stackLevel.dependencies.length}}</b> |
-            <b>Analyzed: {{stackLevel && stackLevel.analyzed_dependencies && stackLevel.analyzed_dependencies.length}}</b> |
+            <b>Analyzed: {{stackLevel && this.stackLevel.analyzed_direct_dependencies_count && this.stackLevel.analyzed_direct_dependencies_count}}</b> |
             <b>Unknown: {{stackLevel && stackLevel.unknown_dependencies && stackLevel.unknown_dependencies.length}}</b>]
           </div>
           <div class="col-sm-5">
@@ -43,7 +43,7 @@
   <div *ngIf="progress" class="error-class">
     <div class="container-progress progress">
       <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-        <span>50%</span>
+        <span class="progress-percent">50%</span>
       </div>
     </div>
     <h3>{{progress && progress.title}}</h3>

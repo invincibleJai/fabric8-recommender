@@ -110,4 +110,12 @@ describe ('ComponentSnippetComponent', () => {
         expect((<HTMLParagraphElement>versionContainer.children[1].children[1]).innerText).toBe(componentInformation.latestVersion);
     });
 
+    it('should not have the affected dependency', () => {
+        component.view = 'normal';
+        component.ngOnInit();
+        fixture.detectChanges();
+        const affectedDepsContainer = element.querySelector('.affected-deps');
+        expect(affectedDepsContainer).toBeNull();
+    });
+
 });
